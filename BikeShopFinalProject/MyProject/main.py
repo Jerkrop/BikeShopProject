@@ -14,7 +14,7 @@ def db_connect():
 
 
 # connects to the mainpage
-@app.route('/')
+@app.route('/') 
 def main():
     return render_template('StorePage.html')
 
@@ -95,9 +95,19 @@ def end1():
         # pass
         return render_template(main)
         
-    return render_template('EndPointPage.html')
+    return render_template('StorePage.html', review = review)
 
-
+@app.route('/',methods=['POST', 'GET'])
+def end2():
+    review = request.form['review']
+    # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Bikerev (five_star,)'(review))
+    cur.close()
+    conn.close()
+    
+    return render_template('StorePage.html',review=review)
 
 
 if __name__ == '__main__':
