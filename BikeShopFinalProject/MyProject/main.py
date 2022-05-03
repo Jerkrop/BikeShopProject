@@ -43,48 +43,56 @@ def end():
 # Not yet done do not tocuh or remove this
 @app.route('/end',methods=['POST', 'GET'])
 def end1():
+    # if request.form is not['five'] or ['three'] or ['two'] or ['one']:
+    #     four = request.form['four']
+    # if request.form is not['five'] or ['four'] or ['two'] or ['one']:
+    #     three = request.form['three']
+    # if request.form is not['five'] or ['four'] or ['three'] or ['one']:
+    #     two = request.form['two']
+    # if request.form is not['five'] or ['four'] or ['three'] or ['two']:
+    #     one = request.form['one']
     review = request.form['review']
-    five = request.form['five']
-    four = request.form['four']
-    three = request.form['three']
-    two = request.form['two']
-    one = request.form['one']
-    if request.form['five'] is five:
+    five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+    print(five)
+    
+    if five =='five':
         conn = db_connect()
         cur = conn.cursor()
-        cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',(review,))
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',(review,'na','na','na','na'))
         conn.commit()
         cur.close()
         conn.close()
-    elif request.form['four']is four:
+    elif five =='four':
         conn = db_connect()
         cur = conn.cursor()
-        cur.execute('INSERT INTO Bikerev (four_star) VALUES(%s)',(review,))
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na',review,'na','na','na'))
         conn.commit()
         cur.close()
         conn.close()
-    elif request.form['three'] is three:
+    elif five=='three':
         conn = db_connect()
         cur = conn.cursor()
-        cur.execute('INSERT INTO Bikerev (three_star) VALUES(%s)',(review,))
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na',review,'na','na'))
         conn.commit()
         cur.close()
         conn.close()
-    elif request.form['two'] is two:
+    elif five =='two':
         conn = db_connect()
         cur = conn.cursor()
-        cur.execute('INSERT INTO Bikerev (two_star) VALUES(%s)',(review,))
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na','na',review,'na'))
         conn.commit()
         cur.close()
         conn.close()
-    elif request.form['one'] is one:
+    elif five =='one':
+
         conn = db_connect()
         cur = conn.cursor()
-        cur.execute('INSERT INTO Bikerev (one_star) VALUES(%s)',(review,))
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na','na','na',review,))
         conn.commit()
         cur.close()
         conn.close()
     else:
+        # pass
         return render_template(main)
         
     return render_template('EndPointPage.html')
