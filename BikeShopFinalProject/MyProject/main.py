@@ -9,6 +9,7 @@ def db_connect():
     conn = psycopg2.connect(
     host = 'localhost',
     database = 'FinalBike',
+    
     )
     return conn
 
