@@ -4,18 +4,58 @@ from flask import request
 app = Flask(__name__)
 import psycopg2
 
+# connects to the database
 def db_connect():
     conn = psycopg2.connect(
     host = 'localhost',
     database = 'FinalBike',
+    
     )
     return conn
 
-@app.route('/')
+
+# connects to the mainpage
+@app.route('/') 
 def main():
     return render_template('StorePage.html')
 
+@app.route('/accessories')
+def accessory():
+    return render_template('Accessories.html')
 
+@app.route('/BMXbikes')
+def bmx_bikes():
+    return render_template('BMXbikes.html')
+
+@app.route('/CustomizationBikePage')
+def customization_bike():
+    return render_template('CustomizationBike.html')
+    
+@app.route('/KidsBikes')
+def kids_bike():
+    return render_template('KidsBikes.html')
+
+@app.route('/MountainBikes')
+def MountainBikes():
+    return render_template('/MountainBikes.html')
+
+@app.route('/OverviewPage')
+def OverviewPage():
+    return render_template('/OverviewPage')
+
+@app.route('/PaymentPage')
+def PaymentPage():
+    return render_template('PaymentPage.html')
+
+@app.route('/Prebuild')
+def Prebuild():
+    return render_template('/PrebuildPage.html')
+
+@app.route('/Roadbike')
+def road_bike():
+    return render_template('Roadbike.html')
+
+# connect to the end page and adds the review table for the end page
 @app.route('/end')
 def end():
     conn = db_connect()
@@ -38,10 +78,73 @@ def end():
 
 
 # Not yet done do not tocuh or remove this
-# @app.route('/end',methods=['POST', 'GET'])
-# def end1():
-#     pass
+@app.route('/end',methods=['POST', 'GET'])
+def end1():
+    # if request.form is not['five'] or ['three'] or ['two'] or ['one']:
+    #     four = request.form['four']
+    # if request.form is not['five'] or ['four'] or ['two'] or ['one']:
+    #     three = request.form['three']
+    # if request.form is not['five'] or ['four'] or ['three'] or ['one']:
+    #     two = request.form['two']
+    # if request.form is not['five'] or ['four'] or ['three'] or ['two']:
+    #     one = request.form['one']
+    review = request.form['review']
+    five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+    print(five)
+    
+    if five =='five':
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',(review,'na','na','na','na'))
+        conn.commit()
+        cur.close()
+        conn.close()
+    elif five =='four':
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na',review,'na','na','na'))
+        conn.commit()
+        cur.close()
+        conn.close()
+    elif five=='three':
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na',review,'na','na'))
+        conn.commit()
+        cur.close()
+        conn.close()
+    elif five =='two':
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na','na',review,'na'))
+        conn.commit()
+        cur.close()
+        conn.close()
+    elif five =='one':
 
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na','na','na',review,))
+        conn.commit()
+        cur.close()
+        conn.close()
+    else:
+        # pass
+        return render_template(main)
+        
+    return render_template('StorePage.html', review = review)
+
+@app.route('/',methods=['POST', 'GET'])
+def end2():
+    review = request.form['review']
+    # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Bikerev (five_star,)'(review))
+    cur.close()
+    conn.close()
+    
+    return render_template('StorePage.html',review=review)
 
 
 if __name__ == '__main__':

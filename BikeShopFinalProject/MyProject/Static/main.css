@@ -9,10 +9,11 @@
 body { 
   background-color: grey;
   background-repeat: no-repeat;
-  
+  text-align: center;
      }
 
 .flex-container1 > div {
+<<<<<<< HEAD
   background-color: black;
   margin: 10px;
   padding: 20px;
@@ -105,9 +106,88 @@ body {
   
 }
 .flex-container14 > div {
+=======
+>>>>>>> 7ba3676ba6faf9ea7b528593dd947948c2f7fe01
   background-color: black;
   margin: 10px;
   padding: 20px;
   font-size: 30px;
-  
+  text-align: center;
+}
+.flex-container2 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container3 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container4 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container5 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container6 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container7 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container8 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container9 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container10 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container11 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-container12 > div {
+  background-color: black;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
 }
