@@ -15,9 +15,45 @@ def db_connect():
 
 
 # connects to the mainpage
-@app.route('/')
+@app.route('/') 
 def main():
     return render_template('StorePage.html')
+
+@app.route('/accessories')
+def accessory():
+    return render_template('Accessories.html')
+
+@app.route('/BMXbikes')
+def bmx_bikes():
+    return render_template('BMXbikes.html')
+
+@app.route('/CustomizationBikePage')
+def customization_bike():
+    return render_template('CustomizationBike.html')
+    
+@app.route('/KidsBikes')
+def kids_bike():
+    return render_template('KidsBikes.html')
+
+@app.route('/MountainBikes')
+def MountainBikes():
+    return render_template('/MountainBikes.html')
+
+@app.route('/OverviewPage')
+def OverviewPage():
+    return render_template('/OverviewPage')
+
+@app.route('/PaymentPage')
+def PaymentPage():
+    return render_template('PaymentPage.html')
+
+@app.route('/Prebuild')
+def Prebuild():
+    return render_template('/PrebuildPage.html')
+
+@app.route('/Roadbike')
+def road_bike():
+    return render_template('Roadbike.html')
 
 # connect to the end page and adds the review table for the end page
 @app.route('/end')
@@ -96,9 +132,19 @@ def end1():
         # pass
         return render_template(main)
         
-    return render_template('EndPointPage.html')
+    return render_template('StorePage.html', review = review)
 
-
+@app.route('/',methods=['POST', 'GET'])
+def end2():
+    review = request.form['review']
+    # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Bikerev (five_star,)'(review))
+    cur.close()
+    conn.close()
+    
+    return render_template('StorePage.html',review=review)
 
 
 if __name__ == '__main__':
