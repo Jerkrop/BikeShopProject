@@ -1,5 +1,6 @@
 <link rel="stylesheet" href='../Static/main.css'>
 
+
 <p>Enter review</p>
 
 
@@ -12,3 +13,10 @@
 
 <input type="text" placeholder="Enter review" name='review'>
 </form>
+
+<form action="http://127.0.0.1:5000/end" method="GET"> 
+    <p>here are some of our previously submitted reviews</p>
+    {{review}}
+</form>
+
+
