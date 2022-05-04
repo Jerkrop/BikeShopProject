@@ -1,6 +1,6 @@
 <html> 
 <title>StorePage</title>
-<link rel="stylesheet" href='../Static/main.css'>
+<link rel="stylesheet" href="../Static/main.css">
 <body>
     <form action="http://127.0.0.1:5000/" method="POST">
     <div class="flex-container14">
@@ -8,7 +8,7 @@
         <div class="Nav"> </div>
        
         <input type="text" placeholder="Search..">
-<h3>  </h3>
+
     </form>
     <a href="http://127.0.0.1:5000/SignIn">Login</a>
     <ul>
@@ -16,10 +16,71 @@
         <li><a href="#Prebuilts">Prebuilts</a></li>
         <li><a href="#Customize">Customize</a></li>
         <li><a href="#Cart">Cart</a></li>
+        <li><a href="#Cart">Reviews</a></li>
       </ul>
-<p>here are some of our reviews</p>
+
+      <div class="slideshow-container">
+
+      <div class="mySlides fade">
+ 
+        <img  src="https://static.onecms.io/wp-content/uploads/sites/38/2021/04/28/GettyImages-1278591198-2000.jpg" style="width:180%" >
+      </div>
+    
+      <div class="mySlides fade">
+      
+        <img  src="https://bikepacking.com/wp-content/uploads/2016/10/Pivot-Switchblade_2222.jpg" style="width:180%">
+      </div>
+      
+      <div class="mySlides fade">
+      
+        <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbBpu3mXOK0Nr55QjI4xU93K1kSO7RF-yHg&usqp=CAU" style="width:180%">
+      </div>
+
+
+      <div class="mySlides fade">
+        
+        <img  src="https://www.merlincycles.com/blog/wp-content/uploads/2016/10/42430_merlin_inferno_ultegra_disc_carbon_road_bike.jpg"style="width:180%" >
+      </div>
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+  <br>
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+    }
+    </script>
+ 
+ <div class="footer">
+
+<p>Here are some of our reviews:</p>
 
 {{review}}
+</div>
+</div>
 </body>
 </div>
 </html>
