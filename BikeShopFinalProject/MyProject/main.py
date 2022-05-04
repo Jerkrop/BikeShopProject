@@ -97,7 +97,9 @@ def road_bike():
 @app.route('/end')
 def endpoint():
     return render_template('EndPointPage.html')
-
+@app.route('/error')
+def error():
+    return render_template('error.html')
 # connect to the end page and adds the review table for the end page
 
 
@@ -111,8 +113,11 @@ def Review_db_Insert():
         review = request.form['review']
         five = request.form['five' or 'four' or 'three' or 'two' or 'one']
         print(five)
-        
-        if five =='five':
+        # error=' '
+
+        if review == "":
+            return render_template('error.html')
+        elif five =='five':
             conn = db_connect()
             cur = conn.cursor()
             cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',(review,'na','na','na','na'))
@@ -148,23 +153,25 @@ def Review_db_Insert():
             conn.commit()
             cur.close()
             conn.close()
+        
         else:
             # pass
-            return render_template('EndPointPage.html')
+            return render_template('error.html')
             
         return render_template('StorePage.html', review = review)
 
 @app.route('/',methods=['POST', 'GET'])
 def Review_Main():
-    review = request.form['review']
-    # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
-    conn = db_connect()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Bikerev (five_star)'(review))
-    cur.close()
-    conn.close()
-    
-    return render_template('StorePage.html',review=review)
+    if request.method == 'GET':
+        review = request.form['review']
+        # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM Bikerev (five_star)'(review))
+        cur.close()
+        conn.close()
+        
+        return render_template('StorePage.html',review=review)
 
 
 if __name__ == '__main__':
