@@ -5,20 +5,32 @@
     <form action="http://127.0.0.1:5000/" method="POST">
     <div class="flex-container14">
         <h1 href="" >Bike Shop</h1>
+        <a href="http://127.0.0.1:5000/SignIn">Login</a>
+        <a href="/" class="logout">Log out</a>
+        <script>
+            var isAuthenticated = document.cookie.indexOf("authenticated=true") >= 0;
+
+if (isAuthenticated) {
+  document.body.className += " authenticated";
+}
+        </script>
         <div class="Nav"> </div>
        
-        <input type="text" placeholder="Search..">
+        
 
     </form>
-    <a href="http://127.0.0.1:5000/SignIn">Login</a>
+  
     <ul>
         <li><a href="http://127.0.0.1:5000/">Home</a></li>
         <li><a href="http://127.0.0.1:5000/Prebuild">Prebuilts</a></li>
         <li><a href="http://127.0.0.1:5000/Custom">Customize</a></li>
         <li><a href="#Cart">Cart</a></li>
         <li><a href="#Review">Reviews</a></li>
+        <input type="text" placeholder="Search..">
+        
+        
       </ul>
-
+    </div>
       <div class="slideshow-container">
 
       <div class="mySlides fade">
@@ -82,9 +94,7 @@
 
 </div>
 
-<a href="#" class="fa fa-facebook"></a>
-<a href="#" class="fa fa-twitter"></a>
-<a href="#" class="fa fa-youtube"></a>
+
 </div>
 </body>
 </div>

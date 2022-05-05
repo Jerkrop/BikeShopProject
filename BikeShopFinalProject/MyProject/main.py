@@ -53,7 +53,11 @@ def Prebuild():
 
 @app.route('/Roadbike')
 def road_bike():
-    return render_template('Roadbike.html')
+    return render_template('Roadbikes.html')
+@app.route('/SignIn')
+def SignIn  ():
+    return render_template('Signin.html')
+       
 
 # connect to the end page and adds the review table for the end page
 @app.route('/end')
