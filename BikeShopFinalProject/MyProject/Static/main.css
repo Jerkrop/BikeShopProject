@@ -181,7 +181,7 @@ li a:hover {
 }
 
 * {box-sizing:border-box}
-
+p
 .slideshow-container {
   max-width: 1000px;
   position: relative;
@@ -347,3 +347,4 @@ a:hover, a:active {
 .dropdown:hover .dropdown-content {
   display:flex;
 }
+

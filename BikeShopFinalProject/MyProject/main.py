@@ -29,7 +29,7 @@ def bmx_bikes():
 
 @app.route('/CustomizationBikePage')
 def customization_bike():
-    return render_template('CustomizationBike.html')
+    return render_template('CustomizationBikePage.html')
     
 @app.route('/KidsBikes')
 def kids_bike():
@@ -57,6 +57,10 @@ def road_bike():
 @app.route('/SignIn')
 def SignIn  ():
     return render_template('Signin.html')
+       
+@app.route('/Register')
+def Reg  ():
+    return render_template('Register.html')
        
 
 # connect to the end page and adds the review table for the end page
