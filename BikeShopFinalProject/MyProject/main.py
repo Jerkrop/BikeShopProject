@@ -68,7 +68,7 @@ def bmx_bikes():
 
 @app.route('/CustomizationBikePage')
 def customization_bike():
-    return render_template('CustomizationBike.html')
+    return render_template('CustomizationBikePage.html')
     
 @app.route('/KidsBikes')
 def kids_bike():
@@ -92,7 +92,15 @@ def Prebuild():
 
 @app.route('/Roadbike')
 def road_bike():
-    return render_template('Roadbike.html')
+    return render_template('Roadbikes.html')
+@app.route('/SignIn')
+def SignIn  ():
+    return render_template('Signin.html')
+       
+@app.route('/Register')
+def Reg  ():
+    return render_template('Register.html')
+       
 
 @app.route('/end')
 def endpoint():
