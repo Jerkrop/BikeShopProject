@@ -129,7 +129,7 @@ def MountainBikes():
 
 @app.route('/OverviewPage')
 def OverviewPage():
-    return render_template('/OverviewPage')
+    return render_template('/OverviewPage.html')
 
 @app.route('/PaymentPage')
 def PaymentPage():
