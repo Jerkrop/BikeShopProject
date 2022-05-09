@@ -151,8 +151,7 @@ def road_bike():
     return render_template('Roadbikes.html')
 @app.route('/SignIn')
 def SignIn  ():
-    return render_template('Signin.html')
-       
+    return render_template('Signin.html')       
 @app.route('/Register')
 def Register():
     return render_template('Register.html')
@@ -313,22 +312,6 @@ def Review_db_Insert():
         daddy2 +=1
 
         return redirect(url_for('random_insertdb', ran = review))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # @app.route('/',methods=['POST', 'GET'])
 # def Review_Main():
 #     # if request.method == 'GET':
