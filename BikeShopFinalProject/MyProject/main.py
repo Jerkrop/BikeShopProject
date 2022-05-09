@@ -8,9 +8,10 @@ daddy=0
 # connects to the database
 def db_connect():
     conn = psycopg2.connect(
-    host = 'localhost',
-    database = 'FinalBike',
-    
+        host = 'localhost',
+        database = 'FinalBike',
+        user = 'postgres',
+        password = 'Meegee12'
     )
     return conn
 
@@ -97,7 +98,7 @@ def random_insertdb():
 
 @app.route('/accessories')
 def accessory():
-    return render_template('Accessories.html')
+    return render_template('AccessoryPage.html')
 
 @app.route('/BMXbikes')
 def bmx_bikes():
