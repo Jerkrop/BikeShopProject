@@ -5,6 +5,7 @@ app = Flask(__name__)
 import psycopg2
 import random
 
+daddy=0
 # connects to the database
 def db_connect():
     conn = psycopg2.connect(
@@ -14,7 +15,6 @@ def db_connect():
     )
     return conn
 
-@app.route('/')
 def end():
     conn = db_connect()
     cur = conn.cursor()
@@ -28,29 +28,78 @@ def end():
     conn.commit()
     cur.close()
     conn.close()
-    return render_template('StorePage.html')
 
-@app.route('/')
-def random_insertdb():
+
+def bike_db():
     conn = db_connect()
     cur = conn.cursor()
-    cur.execute('INSERT INTO Bikerev VALUES(%s)',('This place is wonderful'))
+    cur.execute("""CREATE TABLE IF NOT EXISTS Bike_Name(
+                    Mountain varchar(500),
+                    BMX varchar(500),
+                    Road varchar(500),
+                    Kids varchar(500),
+                    Prebuilt varchar(500)
+                    )""")
     conn.commit()
     cur.close()
     conn.close()
-    # conn = db_connect()
-    # cur = conn.cursor()
-    # cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',('This place makes gerb look like a pimp'))
-    # conn.commit()
-    # cur.close()
-    # conn.close()
-    # conn = db_connect()
-    # cur = conn.cursor()
-    # cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',('The Customer Service is amzing'))
-    # conn.commit()
-    # cur.close()
-    # conn.close()
-    return render_template('StorePage.html')
+
+def Insert_Place_Rev():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',['This place is wonderful'] )
+    conn.commit()
+    cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',['This place is unmatched'] )
+    conn.commit()
+    cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',['All of these different options for the bikes is why I shop here!!'])
+    conn.commit()
+    cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',['This place is totally gerb'] )
+    conn.commit()
+    cur.execute('INSERT INTO Bikerev (five_star) VALUES(%s)',['I finially have a bike to climb up any mountain thanks to this bike store'] )
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def Randomize_Review():
+    end()
+    bike_db()
+    global daddy
+    run_one=0
+    if daddy==0:
+        if run_one ==0:
+            Insert_Place_Rev()
+            run_one=1
+        elif run_one==1:
+            pass
+    else:
+        pass
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute('SELECT Five_star FROM Bikerev')
+    test = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    daddy+=1
+    return test
+    
+@app.route('/')
+def random_insertdb():
+    test=Randomize_Review()
+    print(test)
+    b=[]
+    for i in test:
+
+        b.append(i)
+        print(b)
+        print(i)
+    
+
+    ran=random.choice(b)
+    ran=str(ran).strip("()")
+    
+    return render_template('StorePage.html',ran=ran)
 
 
 # connects to the mainpage
@@ -120,7 +169,7 @@ def Review_db_Insert():
     if request.method == 'POST':
         review = request.form['review']
         five = request.form['five' or 'four' or 'three' or 'two' or 'one']
-        print(five)
+        # print(five)
         # error=' '
 
         if review == "":
@@ -170,16 +219,17 @@ def Review_db_Insert():
 
 @app.route('/',methods=['POST', 'GET'])
 def Review_Main():
-    if request.method == 'GET':
-        review = request.form['review']
-        # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
-        conn = db_connect()
-        cur = conn.cursor()
-        cur.execute('SELECT * FROM Bikerev (five_star)'(review))
-        cur.close()
-        conn.close()
+    # if request.method == 'GET':
+    #     review = request.form['review']
+    #     # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+    #     # conn = db_connect()
+    #     # cur = conn.cursor()
+    #     # cur.execute('SELECT * FROM Bikerev WHERE five_star = This place is wonderful (five_star)'(review))
+    #     # cur.close()
+    #     # conn.close()
         
-        return render_template('StorePage.html',review=review)
+    #     return render_template('StorePage.html')
+    pass
 
 
 if __name__ == '__main__':
