@@ -118,7 +118,7 @@ def kids_bike():
 def MountainBikes():
     return render_template('/MountainBikes.html')
 
-@app.route('/OverviewPage')
+@app.route('/Overview')
 def OverviewPage():
     return render_template('/OverviewPage.html')
 
