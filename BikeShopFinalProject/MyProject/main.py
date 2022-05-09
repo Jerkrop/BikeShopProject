@@ -5,13 +5,14 @@ app = Flask(__name__)
 import psycopg2
 import random
 daddy=0
+daddy2=0
 # connects to the database
 def db_connect():
     conn = psycopg2.connect(
         host = 'localhost',
         database = 'FinalBike',
-        user = 'postgres',
-        password = 'Meegee12'
+        # user = 'postgres',
+        # password = 'Meegee12'
     )
     return conn
 
@@ -23,7 +24,8 @@ def end():
                     Four_star varchar(500),
                     Three_star varchar(500),
                     Two_star varchar(500),
-                    One_star varchar(500) 
+                    One_star varchar(500),
+                    name varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -147,10 +149,25 @@ def error():
     return render_template('error.html')
 # connect to the end page and adds the review table for the end page
 
+
+
+
+
+
+
+
+
+
+
 # Not yet done do not tocuh or remove this
+
+
+
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
+    random_insertdb()
     if request.method == 'POST':
+        name = request.form['name']
         review = request.form['review']
         five = request.form['five' or 'four' or 'three' or 'two' or 'one']
         # print(five)
@@ -160,28 +177,28 @@ def Review_db_Insert():
         elif five =='five':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',(review,'na','na','na','na'))
+            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star,name) VALUES(%s,%s,%s,%s,%s,%s)',(review,'na','na','na','na',name))
             conn.commit()
             cur.close()
             conn.close()
         elif five =='four':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na',review,'na','na','na'))
+            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star,name) VALUES(%s,%s,%s,%s,%s,%s)',('na',review,'na','na','na',name))
             conn.commit()
             cur.close()
             conn.close()
         elif five=='three':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na',review,'na','na'))
+            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star,name) VALUES(%s,%s,%s,%s,%s,%s)',('na','na',review,'na','na',name))
             conn.commit()
             cur.close()
             conn.close()
         elif five =='two':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na','na',review,'na'))
+            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star,name) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na',review,'na',name))
             conn.commit()
             cur.close()
             conn.close()
@@ -189,7 +206,7 @@ def Review_db_Insert():
 
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star) VALUES(%s,%s,%s,%s,%s)',('na','na','na','na',review,))
+            cur.execute('INSERT INTO Bikerev (five_star,four_star,three_star,two_star,one_star,name) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','na',review,name))
             conn.commit()
             cur.close()
             conn.close()
@@ -197,22 +214,39 @@ def Review_db_Insert():
         else:
             # pass
             return render_template('error.html')
-            
-        return render_template('StorePage.html', review = review)
+        global daddy2 
+        daddy2 +=1
 
-@app.route('/',methods=['POST', 'GET'])
-def Review_Main():
-    # if request.method == 'GET':
-    #     review = request.form['review']
-    #     # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
-    #     # conn = db_connect()
-    #     # cur = conn.cursor()
-    #     # cur.execute('SELECT * FROM Bikerev WHERE five_star = This place is wonderful (five_star)'(review))
-    #     # cur.close()
-    #     # conn.close()
+        return redirect(url_for('random_insertdb', ran = review))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route('/',methods=['POST', 'GET'])
+# def Review_Main():
+#     # if request.method == 'GET':
+#     #     review = request.form['review']
+#     #     # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+#     #     # conn = db_connect()
+#     #     # cur = conn.cursor()
+#     #     # cur.execute('SELECT * FROM Bikerev WHERE five_star = This place is wonderful (five_star)'(review))
+#     #     # cur.close()
+#     #     # conn.close()
         
-    #     return render_template('StorePage.html')
-    pass
+#     #     return render_template('StorePage.html')
+#     pass
 
 
 if __name__ == '__main__':
