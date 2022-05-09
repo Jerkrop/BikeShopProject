@@ -1,0 +1,117 @@
+<html> 
+<title>StorePage</title>
+<link rel="stylesheet" href="../static/main.css">
+
+<body>
+
+
+    <form action="http://127.0.0.1:5000/" method="POST">
+    <div class="flex-container14 crossfade">
+    
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+      
+       
+        <script>
+            var isAuthenticated = document.cookie.indexOf("authenticated=true") >= 0;
+
+if (isAuthenticated) {
+  document.body.className += " authenticated";
+}
+        </script>
+        
+       <div class="navbar">
+        <h1 class="h1StoreHeader" >Bike Shop</h1>
+        <a   href="http://127.0.0.1:5000/SignIn" class="Login_Logout">Login</a>
+        <a  href="/" class="Login_Logout">Log out 
+
+        </a ><ion-icon name="power"></ion-icon>
+        
+        <a href="http://127.0.0.1:5000/">Home</a>
+        <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+          <div class="dropdown">
+          <a class="dropbtn" onclick="myFunction()">Customize
+          <a href="http://127.0.0.1:5000/accessories">Accessories</a>
+            
+          </a>
+          <div class="dropdown-content" id="myDropdown">
+            <a href="http://127.0.0.1:5000/Roadbike">Road</a>
+            <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+            <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+            <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+            
+       
+          </div>
+          <a href="http://127.0.0.1:5000/OverviewPage">Cart</a>
+        </div> 
+      </div>  
+       
+
+      
+        
+      
+
+</div>
+  <br>
+ 
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+    }
+    </script>
+
+<script>
+
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  
+  window.onclick = function(e) {
+    if (!e.target.matches('.dropbtn')) {
+    var myDropdown = document.getElementById("myDropdown");
+      if (myDropdown.classList.contains('show')) {
+        myDropdown.classList.remove('show');
+      }
+    }
+  }
+  </script>
+ <div class="footer">
+
+<p>Here are some of our reviews:</p>
+
+{{ran}}
+
+</div>
+
+
+</div>
+</body>
+</div>
+</html>
