@@ -8,9 +8,10 @@ import random
 # connects to the database
 def db_connect():
     conn = psycopg2.connect(
-    host = 'localhost',
-    database = 'FinalBike',
-    
+        host = 'localhost',
+        database = 'FinalBike',
+        user = 'postgres',
+        password = 'Meegee12'
     )
     return conn
 
