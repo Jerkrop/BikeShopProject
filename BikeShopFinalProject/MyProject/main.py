@@ -4,7 +4,6 @@ from flask import request
 app = Flask(__name__)
 import psycopg2
 import random
-
 daddy=0
 # connects to the database
 def db_connect():
@@ -28,7 +27,6 @@ def end():
     conn.commit()
     cur.close()
     conn.close()
-
 
 def bike_db():
     conn = db_connect()
@@ -90,22 +88,12 @@ def random_insertdb():
     print(test)
     b=[]
     for i in test:
-
         b.append(i)
         print(b)
         print(i)
-    
-
     ran=random.choice(b)
-    ran=str(ran).strip("()")
-    
+    ran=str(ran).strip("'()',")
     return render_template('StorePage.html',ran=ran)
-
-
-# connects to the mainpage
-# @app.route('/') 
-# def main():
-#     return render_template('StorePage.html')
 
 @app.route('/accessories')
 def accessory():
@@ -147,9 +135,8 @@ def SignIn  ():
     return render_template('Signin.html')
        
 @app.route('/Register')
-def Reg  ():
+def Register():
     return render_template('Register.html')
-       
 
 @app.route('/end')
 def endpoint():
@@ -159,10 +146,6 @@ def error():
     return render_template('error.html')
 # connect to the end page and adds the review table for the end page
 
-
-
-
-
 # Not yet done do not tocuh or remove this
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
@@ -171,7 +154,6 @@ def Review_db_Insert():
         five = request.form['five' or 'four' or 'three' or 'two' or 'one']
         # print(five)
         # error=' '
-
         if review == "":
             return render_template('error.html')
         elif five =='five':
