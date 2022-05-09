@@ -1,12 +1,20 @@
 <html> 
 <title>StorePage</title>
 <link rel="stylesheet" href="../static/main.css">
+
 <body>
+
+
     <form action="http://127.0.0.1:5000/" method="POST">
-    <div class="flex-container14">
-        <h1 href="" >Bike Shop</h1>
-        <a href="http://127.0.0.1:5000/SignIn">Login</a>
-        <a href="/" class="logout">Log out</a>
+    <div class="flex-container14 crossfade">
+    
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+      
+       
         <script>
             var isAuthenticated = document.cookie.indexOf("authenticated=true") >= 0;
 
@@ -14,49 +22,36 @@ if (isAuthenticated) {
   document.body.className += " authenticated";
 }
         </script>
-        <div class="Nav"> </div>
+       <div class="navbar">
+        <a  href="http://127.0.0.1:5000/SignIn">Login</a>
+        <a  href="/" class="logout">Log out</a ><ion-icon name="power"></ion-icon><h1 href="" >Bike Shop</h1>
        
-        
-
-    </form>
-  
-    <ul>
-        <li><a href="http://127.0.0.1:5000/">Home</a></li>
-        <li><a href="http://127.0.0.1:5000/Prebuild">Prebuilts</a></li>
-        <li><a href="http://127.0.0.1:5000/CustomizationBikePage">Customize</a></li>
-        <li><a href="#Cart">Cart</a></li>
-        <li><a href="#Review">Reviews</a></li>
-        <input type="text" placeholder="Search..">
-        
-        
-      </ul>
-    </div>
-      <div class="slideshow-container">
-
-      <div class="mySlides fade">
- 
-        <img  src="https://static.onecms.io/wp-content/uploads/sites/38/2021/04/28/GettyImages-1278591198-2000.jpg" style="width:180%" >
-      </div>
-    
-      <div class="mySlides fade">
+        <a href="http://127.0.0.1:5000/">Home</a>
+        <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+          <div class="dropdown">
+          <a class="dropbtn" onclick="myFunction()">Customize
+            
+          </a>
+          <div class="dropdown-content" id="myDropdown">
+            <a href="http://127.0.0.1:5000/Roadbike">Road</a>
+            <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+            <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+            <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+            
+       
+          </div>
+          <a href="http://127.0.0.1:5000/OverviewPage">Cart</a>
+          <a href="http://127.0.0.1:5000/PaymentPage">Payment</a>
+        </div> 
+      </div>  
+       
       
-        <img  src="https://bikepacking.com/wp-content/uploads/2016/10/Pivot-Switchblade_2222.jpg" style="width:180%">
-      </div>
-      
-      <div class="mySlides fade">
-      
-        <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbBpu3mXOK0Nr55QjI4xU93K1kSO7RF-yHg&usqp=CAU" style="width:180%">
-      </div>
-
-
-      <div class="mySlides fade">
         
-        <img  src="https://www.merlincycles.com/blog/wp-content/uploads/2016/10/42430_merlin_inferno_ultegra_disc_carbon_road_bike.jpg"style="width:180%" >
-      </div>
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      
+
 </div>
   <br>
+ 
   <script>
     let slideIndex = 1;
     showSlides(slideIndex);
@@ -85,7 +80,23 @@ if (isAuthenticated) {
       dots[slideIndex-1].className += " active";
     }
     </script>
- 
+
+<script>
+
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  
+  window.onclick = function(e) {
+    if (!e.target.matches('.dropbtn')) {
+    var myDropdown = document.getElementById("myDropdown");
+      if (myDropdown.classList.contains('show')) {
+        myDropdown.classList.remove('show');
+      }
+    }
+  }
+  </script>
  <div class="footer">
 
 <p>Here are some of our reviews:</p>
