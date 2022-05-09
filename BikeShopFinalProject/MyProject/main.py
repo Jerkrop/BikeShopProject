@@ -38,8 +38,22 @@ def bike_db():
                     Mountain varchar(500),
                     BMX varchar(500),
                     Road varchar(500),
+                    Kids varchar(500)
+                    )""")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def prebuild_db():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS prebuild(
+                    Mountain varchar(500),
+                    BMX varchar(500),
+                    Road varchar(500),
                     Kids varchar(500),
-                    Prebuilt varchar(500)
+                    price varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -64,6 +78,8 @@ def Insert_Place_Rev():
 def Randomize_Review():
     end()
     bike_db()
+    prebuild_db()
+    
     global daddy
     run_one=0
     if daddy==0:
@@ -155,11 +171,90 @@ def error():
 
 
 
+@app.route('/',methods=['POST', 'GET'])
+def PreBuild_Buy():
+    if request.method == 'POST':
+        Road=request.form['Rfirst' or 'Rsecond' or 'Rthird' or 'Rfourth'or 'Rfifth']
+        # kids=request.form['Kfirst'or 'Ksecond' or 'Kthird'or 'Kfourth'or 'Kfifth']
+        # Mountain=request.form['Mfirst'or 'Msecond' or 'Mthird'or 'Mfourth' or'Mfifth']
+        # b=request.form['Mfirst'or'Msecond'or 'Mthird'or'Mfourth' or 'Mfifth']
+        # CREATE TABLE IF NOT EXISTS prebuild(
+        #             Mountain varchar(500),
+        #             BMX varchar(500),
+        #             Road varchar(500),
+        #             Kids varchar(500)
+        #             price varchar(500)
+        if Road =='Rfirst':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO bike_db (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na',Road,'na',500))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Road =='Rsecond':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO bike_db (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na',Road,'na',500))
+            conn.commit()
+            cur.close()
+            conn.close()
+        # elif Road =='Rthird':
+        #     pass
+        # elif Road =='Rfourth':
+        #     pass
+        # elif Road =='Rfifth':
+        #     pass
+        # elif kids =='Kfirst':
+        #     pass
+        # elif kids =='Ksecond':
+        #     pass
+        # elif kids =='Kthird':
+        #     pass
+        # elif kids =='Kfourth':
+        #     pass
+        # elif kids =='Kfifth':
+        #     pass
+        # elif Mountain =='Mfirst':
+        #     pass
+        # elif Mountain =='Msecond':
+        #     pass
+        # elif Mountain =='Mthird':
+        #     pass
+        # elif Mountain =='Mfourth':
+        #     pass
+        # elif Mountain =='Mfifth':
+        #     pass
+        # elif b =='Mfirst':
+        #     pass
+        # elif b =='Msecond':
+        #     pass
+        # elif b =='Mthird':
+        #     pass
+        # elif b =='Mfourth':
+        #     pass
+        # elif b =='Mfifth':
+        #     pass
+        else:
+            # pass
+            return render_template('error.html')
 
+
+
+
+    return redirect(url_for('OverviewPage'))
 
 
 
 # Not yet done do not tocuh or remove this
+
+
+
+
+
+
+
+
+
 
 
 
