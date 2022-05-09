@@ -413,5 +413,6 @@ a:hover, a:active {
 }
 
 .Login_Logout  {
- padding-left: 100%;
+  float:right;
+  
 }

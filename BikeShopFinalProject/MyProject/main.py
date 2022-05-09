@@ -61,7 +61,7 @@ def random_insertdb():
 
 @app.route('/accessories')
 def accessory():
-    return render_template('Accessories.html')
+    return render_template('AccessoryPage.html')
 
 @app.route('/BMXbikes')
 def bmx_bikes():
