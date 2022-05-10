@@ -12,7 +12,7 @@ from flask import Flask, redirect, url_for, render_template, request
 
 salt = bcrypt.gensalt()
 
-bikes = {}
+daddy3 = []
 
 activeuser = ''
 
@@ -112,7 +112,6 @@ def login():
         error = "WRONG USERNAME OF PASSWORD"
         cur.close()
         conn.close()
-        print('here')
         return render_template('Signin.html', error = error)
 
 @app.route('/StorePage')
@@ -126,37 +125,34 @@ def AdminPage():
 @app.route('/AdminPage', methods=['POST'])
 def changes():
     if request.method == 'POST':
-        global bikes
+        global daddy3
         conn = get_db_connection()
         cur = conn.cursor()
         image = request.form['image']
-        descrip = request.form['description']
+        descrip = request.form['desc']
         price = request.form['price']
-        page = request.form['page']
-        name = request.form['name']
-        if descrip == '' or price == '' or image == '' or page == '' or name == '':
+        if descrip == '' or price == '' or image == '':
             error = 'No fields can be empty'
             cur.close()
             conn.close()
             return render_template('AdminPage.html', error = error)
         elif image.endswith('jpg') == True or image.endswith('jpeg') == True or image.endswith('png') == True :
-            for i in range(0, len(bikes)):
-                if bikes[i]['name'] == name:
-                    bikes[i]['name'] = name
-                    bikes[i]['price'] = price
-                
+            for i in range(0, len(daddy3) + 1):
+                if i == len(daddy3):
+                    new_bike = {'name':descrip,'price':price}
+                    daddy3.append(new_bike)
+                    print(daddy3)
+                if daddy3[i]['name'] == descrip:
+                    daddy3[i]['price'] = price
             with open("/Users/williemdevenney/Desktop/BikeShopProject/BikeShopFinalProject/MyProject/Templates/PrebuildPage.html", 'r+') as fp:
                 error = 'Changes saved'
                 soup = BeautifulSoup(fp, 'html.parser')
-                print(soup)
-                img = soup.find('img', {'id':'image'})
+                img = soup.find('img', {'id':'img'})
                 img['src'] = image
                 desc = soup.find('p', {'id':'desc'})
                 desc.string = descrip
                 cost = soup.find('p', {'id':'cost'})
                 cost.string = price
-                bike = soup.find('p', {'id':'name'})
-                bike.string = name
                 fp.truncate(0)
                 fp.write(str(soup))
                 return render_template('AdminPage.html', error = error)
