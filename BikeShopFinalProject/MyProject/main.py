@@ -11,8 +11,8 @@ def db_connect():
     conn = psycopg2.connect(
         host = 'localhost',
         database = 'FinalBike',
-        # user = 'postgres',
-        # password = 'Meegee12'
+        user = 'postgres',
+        password = 'Meegee12'
     )
     return conn
 
@@ -38,8 +38,22 @@ def bike_db():
                     Mountain varchar(500),
                     BMX varchar(500),
                     Road varchar(500),
+                    Kids varchar(500)
+                    )""")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def prebuild_db():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS prebuild(
+                    Mountain varchar(500),
+                    BMX varchar(500),
+                    Road varchar(500),
                     Kids varchar(500),
-                    Prebuilt varchar(500)
+                    price varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -64,6 +78,8 @@ def Insert_Place_Rev():
 def Randomize_Review():
     end()
     bike_db()
+    prebuild_db()
+    
     global daddy
     run_one=0
     if daddy==0:
@@ -135,8 +151,7 @@ def road_bike():
     return render_template('Roadbikes.html')
 @app.route('/SignIn')
 def SignIn  ():
-    return render_template('Signin.html')
-       
+    return render_template('Signin.html')       
 @app.route('/Register')
 def Register():
     return render_template('Register.html')
@@ -149,19 +164,162 @@ def error():
     return render_template('error.html')
 # connect to the end page and adds the review table for the end page
 
+@app.route('/Prebuild',methods=['POST', 'GET'])
+def PreBuild_Buy():
+    if request.method == 'POST':
+        Road=request.form['Rfirst' or 'Rsecond' or 'Rthird' or 'Rfourth'or 'Rfifth']
+        kids=request.form['Kfirst'or 'Ksecond' or 'Kthird'or 'Kfourth'or 'Kfifth']
+        Mountain=request.form['Mfirst'or 'Msecond' or 'Mthird'or 'Mfourth' or'Mfifth']
+        b=request.form['Mfirst'or'Msecond'or 'Mthird'or'Mfourth' or 'Mfifth']
+        if Road =='Rfirst':
+            print('test')
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike1','na',500))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Road =='Rsecond':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike2','na',550))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Road =='Rthird':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike3','na',600))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Road =='Rfourth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike4','na',650))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Road =='Rfifth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike5','na',700))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif kids =='Kfirst':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','na','kids bike1',500))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif kids =='Ksecond':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','na','kids bike2',550))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif kids =='Kthird':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','na','kids bike3',600))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif kids =='Kfourth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','na','kids bike4',650))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif kids =='Kfifth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','na','kids bike5',700))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Mountain =='Mfirst':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('Mountain Bike1','na','na','na',500))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Mountain =='Msecond':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('Mountain Bike2','na','na','na',550))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Mountain =='Mthird':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('Mountain Bike3','na','na','na',600))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Mountain =='Mfourth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('Mountain Bike4','na','na','na',650))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif Mountain =='Mfifth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('Mountain Bike5','na','na','na',700))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif b =='Mfirst':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','BMX bike1','na','na',500))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif b =='Msecond':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','BMX bike2','na','na',550))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif b =='Mthird':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','BMX bike3','na','na',600))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif b =='Mfourth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','BMX bike4','na','na',650))
+            conn.commit()
+            cur.close()
+            conn.close()
+        elif b =='Mfifth':
+            conn = db_connect()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','BMX bike5','na','na',700))
+            conn.commit()
+            cur.close()
+            conn.close()
+        else:
+            # pass
+            return render_template('error.html')
 
 
 
 
-
-
-
-
-
-
-# Not yet done do not tocuh or remove this
-
-
+    return redirect(url_for('OverviewPage'))
 
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
@@ -218,22 +376,6 @@ def Review_db_Insert():
         daddy2 +=1
 
         return redirect(url_for('random_insertdb', ran = review))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # @app.route('/',methods=['POST', 'GET'])
 # def Review_Main():
 #     # if request.method == 'GET':
@@ -247,6 +389,8 @@ def Review_db_Insert():
         
 #     #     return render_template('StorePage.html')
 #     pass
+
+
 
 
 if __name__ == '__main__':
