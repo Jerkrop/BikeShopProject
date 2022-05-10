@@ -417,11 +417,10 @@ a:hover, a:active {
   
 }
 .footer2 { 
-  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 75px;
+  height: 175px;
   background-color:rgba(27, 27, 27, 0.836);
   color: white;
   text-align: center;
