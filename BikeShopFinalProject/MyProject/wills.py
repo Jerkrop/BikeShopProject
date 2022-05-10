@@ -8,9 +8,13 @@ from bs4 import BeautifulSoup
 import requests
 from flask import Flask, redirect, url_for, render_template, request
 
-bikes = [{'name':'Bike', 'price':'5'}]
+
+
 salt = bcrypt.gensalt()
 
+bikes = {}
+
+activeuser = ''
 
 app = Flask(__name__)
 
@@ -75,7 +79,6 @@ def Signin():
 @app.route('/Signin', methods=['POST'])
 def login():
     if request.method == 'POST':
-        print('here')
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute('SELECT * FROM bicycle')
@@ -97,6 +100,8 @@ def login():
                     cur.close()
                     conn.close()
                     print('here')
+                    global activeuser
+                    activeuser = user
                     return redirect(url_for('StorePage'))
                 else:
                     error = "WRONG USERNAME OF PASSWORD"
@@ -139,6 +144,7 @@ def changes():
                 if bikes[i]['name'] == name:
                     bikes[i]['name'] = name
                     bikes[i]['price'] = price
+                
             with open("/Users/williemdevenney/Desktop/BikeShopProject/BikeShopFinalProject/MyProject/Templates/PrebuildPage.html", 'r+') as fp:
                 error = 'Changes saved'
                 soup = BeautifulSoup(fp, 'html.parser')
