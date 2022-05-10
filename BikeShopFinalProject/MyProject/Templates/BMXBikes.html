@@ -3,13 +3,226 @@
 <body>
     <link rel="stylesheet" href='../static/main.css'>
 
-    <form action="http://127.0.0.1:5000/BMXbikes" method="POST">
-    <div class="flex-container3">
-        <h2>Welcome To the BMX Bike Page!</h2>
-
-   
-    </form>   
+    <form action="http://127.0.0.1:5000/MountainBikes" method="POST">
+        <div class="navbar">
+            <h1 class="h1StoreHeader">Bike Shop</h1>
+           
+            <a  href="/" class="Login_Logout">Log out 
+    
+            </a ><ion-icon name="power"></ion-icon>
+            
+            <a href="http://127.0.0.1:5000/">Home</a>
+            <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+              <div class="dropdown">
+              <a class="dropbtn" onclick="myFunction()">Customize
+                
+              </a>
+              <div class="dropdown-content" id="myDropdown">
+                    <a href="http://127.0.0.1:5000/Roadbike">Road</a>
+                <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+                <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+                
+           
+              </div>
+              <a href="http://127.0.0.1:5000/OverviewPage">Cart</a>
+            </div> 
+          </div>  
+           
+          
+            
+          
+    
     </div>
+      <br>
+     
+      <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("mySlides");
+          let dots = document.getElementsByClassName("dot");
+          if (n > slides.length) {slideIndex = 1}    
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+          }
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";  
+          dots[slideIndex-1].className += " active";
+        }
+        </script>
+    
+    <script>
+    
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+      
+      
+      window.onclick = function(e) {
+        if (!e.target.matches('.dropbtn')) {
+        var myDropdown = document.getElementById("myDropdown");
+          if (myDropdown.classList.contains('show')) {
+            myDropdown.classList.remove('show');
+          }
+        }
+      }
+      </script>
+    
+    
+    </div>
+    <div class="flex-container12">
+        <h2>Welcome To the Mountain Bike Page!</h2>
+        <h3>Please Select One of our Customizable Options:</h3>
+       
+        <br>
+        <br>
+        <h2>Saddles & Seats:</h2>
+        
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Seat  1</p>
+            <p id="cost">$50</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/fizik/f208urna24873.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Seat 2</p>
+            <p id="cost">$50</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/ism/vl9106blk.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Seat 3</p>
+            <p id="cost">$60</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/27322-3005.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Seat 4</p>
+            <p id="cost">$65</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/chromag/130-011-21.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Seat 5</p>
+            <p id="cost">$70</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/forte/50-4173-blk-non.jpg" /></a>
+
+            <br>
+        <br>
+        <br>
+        <h2>Pedals:</h2>
+        <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Pedals 1</p>
+            <p id="cost">$100</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/ipdr9100.jpg" /></a>
+        <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">pedals 2</p>
+            <p id="cost">$150</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/crankbrothers/15982.jpg" /></a>
+        <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Pedals 3</p>
+            <p id="cost">$180</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/ipdm9120.jpg" /></a>
+        <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Pedals 4</p>
+            <p id="cost">$195</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/crankbrothers/15991.jpg" /></a>
+        <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Pedals 5</p>
+            <p id="cost">$200</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/xpedo/xrf11cc.jpg" /></a>
+
+            <br>
+        <br>
+        <br>
+        <h2>HANDLEBARS:</h2>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Handlebars 1</p>
+            <p id="cost">$150</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/04-000997-46.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Handlebars 2</p>
+            <p id="cost">$200</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/21017-0042.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Handlebars 3</p>
+            <p id="cost">$210</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/spank/han1216.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Handlebars 4</p>
+            <p id="cost">$220</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/ritchey/30375457001.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Handlebars 5</p>
+            <p id="cost">$230 </p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/pro/prha0435.jpg" /></a>
+
+       
+            <br>
+        <br>
+       <br>
+       <h2>SHIFTERS:</h2>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Shifter 1</p>
+            <p id="cost">$200</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/sram/00.7018.393.001.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Shifter 2</p>
+            <p id="cost">$155</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/eslm31002lb.jpg " /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Shifter 3</p>
+            <p id="cost">$160</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/estr2000lia.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Shifter 4</p>
+            <p id="cost">$185</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/istr8000dpa.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Shifter 5</p>
+            <p id="cost">$300</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/sunrace/slr96.lfb0.0s1.hp.jpg" /></a>
+        
+        <br>
+        <br>
+        <br>
+       <br>
+       <h2>CHAINRINGS:</h2>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">ChainRing 1</p>
+            <p id="cost">$150</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/dimension/cr0414.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">ChainRing 2</p>
+            <p id="cost">$155</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/cannondale/cu4041ai32.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">ChainRing 3</p>
+            <p id="cost">$160</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/cannondale/cu4041ai32.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">ChainRing 4</p>
+            <p id="cost">$170</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/sram/11.6218.042.007.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">ChainRing 5</p>
+            <p id="cost">$190</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/campagnolo/fc-cx246.jpg" /></a>
+        
+        <br>
+        <br>
+        <br>
+       <br>
+       <h2>CHAINS:</h2>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">CHAINS 1</p>
+            <p id="cost">$15</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/cn-6701.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">CHAINS 2</p>
+            <p id="cost">$15</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/sram/87.2745.114.105.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">CHAINS 3</p>
+            <p id="cost">$16</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/sram/46.2758.114.005.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">CHAINS 4</p>
+            <p id="cost">$17</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/icnhg93116i.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">CHAINS 5</p>
+            <p id="cost">$19</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/sram/47.2708.114.005.jpg" /></a>
+        
+        <br>
+        <br>
+        <br>
+       <br>
+       <h2>SUSPENSION:</h2>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Suspension 1</p>
+            <p id="cost">$15</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/s161500153.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Suspension 2</p>
+            <p id="cost">$15</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/s161500153.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Suspension 3</p>
+            <p id="cost">$16</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/s161500153.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Suspension 4</p>
+            <p id="cost">$17</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/s161500153.jpg" /></a>
+        <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Suspension 5</p>
+            <p id="cost">$19</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/s161500153.jpg" /></a>
+        
+        <br>
+  
+        <br>
+        <br>
+        <h2>TIRES:</h2>
+         <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Tire 1</p>
+             <p id="cost">$1200</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/zipp/00.1918.522.000.jpg" /></a>
+         <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Tire 2</p>
+             <p id="cost">$1500</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/shimano/ewhr8170c60lfered.jpg" /></a>
+         <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Tire 3</p>
+             <p id="cost">$1650</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/hed/alt-4114121.jpg" /></a>
+         <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Tire 4</p>
+             <p id="cost">$1700</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/qualitywheels/we1117.jpg" /></a>
+         <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Tire 5</p>
+             <p id="cost">$1900</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/30121-8601.jpg" /></a>
+         
+         <br>
+
+
+        
+    
+    </div>
+    <div class="footer2">
+        <p>JeremyDaneWill© </p>
+        <a href="https://www.instagram.com/?hl=en">Instagram</a>
+        <a href="https://twitter.com/">Twitter</a>
+        <a href="https://www.youtube.com/">Youtube</a>
 
 </body>
 
