@@ -164,12 +164,6 @@ def error():
     return render_template('error.html')
 # connect to the end page and adds the review table for the end page
 
-
-
-
-
-
-
 @app.route('/Prebuild',methods=['POST', 'GET'])
 def PreBuild_Buy():
     if request.method == 'POST':
@@ -327,21 +321,6 @@ def PreBuild_Buy():
 
     return redirect(url_for('OverviewPage'))
 
-
-
-# Not yet done do not tocuh or remove this
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
     random_insertdb()
@@ -410,6 +389,8 @@ def Review_db_Insert():
         
 #     #     return render_template('StorePage.html')
 #     pass
+
+
 
 
 if __name__ == '__main__':
