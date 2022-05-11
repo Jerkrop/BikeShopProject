@@ -8,13 +8,11 @@ from bs4 import BeautifulSoup
 import requests
 from flask import Flask, redirect, url_for, render_template, request
 
-
-
 salt = bcrypt.gensalt()
 
 daddy3 = []
 
-activeuser = ''
+activedaddy = ''
 
 app = Flask(__name__)
 
@@ -27,7 +25,7 @@ def get_db_connection():
 
 @app.route('/')
 def start():
-    return redirect(url_for('AdminPage'))
+    return redirect(url_for('Register'))
 
 @app.route('/Register')
 def Register():
@@ -36,7 +34,14 @@ def Register():
     pasw = bytes('password', 'utf-8')
     hashed = bcrypt.hashpw(pasw, salt)
     hashed = hashed.decode('utf-8')
-    cur.execute('INSERT INTO bicycle(name, pass) VALUES(%s, %s)', ('admin',hashed))
+    cur.execute('SELECT * FROM bicycle')
+    info = cur.fetchall()
+    for i in range(0,len(info) + 1):
+        if i == len(info):
+            cur.execute('INSERT INTO bicycle(name, pass) VALUES(%s, %s)', ('admin',hashed))
+            break
+        if info[i][3] == 'admin':
+            break
     conn.commit()
     cur.close()
     conn.close()
@@ -48,25 +53,28 @@ def registration():
         mail = request.form['mail']
         user = request.form['user']
         pasw = request.form['pasw']
+        name = request.form['name']
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute('SELECT * FROM bicycle;')
         info = cur.fetchall()
-        if mail == '' or user == '' or pasw == '':
+        if mail == '' or user == '' or pasw == '' or name == '':
             error = 'Fields can not be left empty!'
             return render_template('Register.html', error = error)
         if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$',pasw):
             error = 'The password is not strong enough!'
             return render_template('Register.html', error = error)
         for i in range(0,len(info)):
-            if info[i][1] == user:
-                error = 'User already exists, Try login in instead!'
+            if info[i][3] == user:
+                error = 'User already exists, try to login instead!'
                 return render_template('Register.html', error = error)
         pasw = bytes(pasw, 'utf-8')
         hashed = bcrypt.hashpw(pasw, salt)
         hashed = hashed.decode('utf-8')
         print(hashed)
-        cur.execute('INSERT INTO bicycle(email, name, pass) VALUES(%s, %s, %s)', (mail,user,hashed))
+        cur.execute('INSERT INTO bicycle(name, email, usr, pass) VALUES(%s, %s, %s, %s)', (name,mail,user,hashed))
+        global activedaddy
+        activedaddy = name
         conn.commit()
         cur.close()
         conn.close()
@@ -86,22 +94,20 @@ def login():
         user = request.form['user']
         pasw = request.form['pasw']
         for i in range(0,len(info)):
-            if info[i][2] == user:
-                password = info[i][3] 
+            if info[i][3] == user:
+                password = info[i][4] 
                 password = bytes(password, 'utf-8')
                 pasw = bytes(pasw, 'utf-8')
-                print(password)
-                print(pasw)
                 if bcrypt.checkpw(pasw, password):
                     if user == 'admin':
                         cur.close()
                         conn.close()
                         return redirect(url_for('AdminPage'))
+                    global activeuser
+                    activeuser = info[i][1]
                     cur.close()
                     conn.close()
                     print('here')
-                    global activeuser
-                    activeuser = user
                     return redirect(url_for('StorePage'))
                 else:
                     error = "WRONG USERNAME OF PASSWORD"

@@ -4,15 +4,22 @@ from flask import request
 app = Flask(__name__)
 import psycopg2
 import random
+import bcrypt
+import re
+
 daddy=0
+
 daddy2=0
+
+salt = bcrypt.gensalt()
+
 # connects to the database
 def db_connect():
-    conn = psycopg2.connect(
+    conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
-        database = 'FinalBike',
-        user = 'postgres',
-        password = 'Meegee12'
+        database = 'bicycle',
+        # user = 'postgres',
+        # password = 'Meegee12'
     )
     return conn
 
@@ -149,20 +156,109 @@ def Prebuild():
 @app.route('/Roadbike')
 def road_bike():
     return render_template('Roadbikes.html')
+
 @app.route('/SignIn')
-def SignIn  ():
-    return render_template('Signin.html')       
-@app.route('/Register')
+def SignIn():
+    return render_template('Signin.html')
+
+@app.route('/Register')## base route for register and adds an admin login
 def Register():
+    conn = db_connect()
+    cur = conn.cursor()
+    pasw = bytes('password', 'utf-8')
+    hashed = bcrypt.hashpw(pasw, salt)
+    hashed = hashed.decode('utf-8')
+    cur.execute('SELECT * FROM bicycle')
+    info = cur.fetchall()
+    for i in range(0,len(info) + 1):
+        if i == len(info):
+            cur.execute('INSERT INTO bicycle(name, pass) VALUES(%s, %s)', ('admin',hashed))
+            break
+        if info[i][3] == 'admin':
+            break
+    conn.commit()
+    cur.close()
+    conn.close()
     return render_template('Register.html')
 
 @app.route('/end')
 def endpoint():
     return render_template('EndPointPage.html')
+
 @app.route('/error')
 def error():
     return render_template('error.html')
 # connect to the end page and adds the review table for the end page
+
+@app.route('/SignIn', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM bicycle')
+        info = cur.fetchall()
+        user = request.form['user']
+        pasw = request.form['pasw']
+        for i in range(0,len(info)):
+            if info[i][3] == user:
+                password = info[i][4] 
+                password = bytes(password, 'utf-8')
+                pasw = bytes(pasw, 'utf-8')
+                if bcrypt.checkpw(pasw, password):
+                    if user == 'admin':
+                        cur.close()
+                        conn.close()
+                        return redirect(url_for('AdminPage'))
+                    global activeuser
+                    activeuser = info[i][1]
+                    cur.close()
+                    conn.close()
+                    print('here')
+                    return redirect(url_for('StorePage'))
+                else:
+                    error = "WRONG USERNAME OF PASSWORD"
+                    cur.close()
+                    conn.close()
+                    print('here')
+                    return render_template('SignIn.html', error = error)
+        error = "WRONG USERNAME OF PASSWORD"
+        cur.close()
+        conn.close()
+        return render_template('SignIn.html', error = error)
+
+@app.route('/Register', methods=['POST'])
+def registration():
+    if request.method == 'POST':
+        mail = request.form['mail']
+        user = request.form['user']
+        pasw = request.form['pasw']
+        name = request.form['name']
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM bicycle;')
+        info = cur.fetchall()
+        if mail == '' or user == '' or pasw == '' or name == '':
+            error = 'Fields can not be left empty!'
+            return render_template('Register.html', error = error)
+        if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$',pasw):
+            error = 'The password is not strong enough!'
+            return render_template('Register.html', error = error)
+        for i in range(0,len(info)):
+            if info[i][3] == user:
+                error = 'User already exists, try to login instead!'
+                return render_template('Register.html', error = error)
+        pasw = bytes(pasw, 'utf-8')
+        hashed = bcrypt.hashpw(pasw, salt)
+        hashed = hashed.decode('utf-8')
+        print(hashed)
+        cur.execute('INSERT INTO bicycle(name, email, usr, pass) VALUES(%s, %s, %s, %s)', (name,mail,user,hashed))
+        global activedaddy
+        activedaddy = name
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('SignIn'))
+
 
 @app.route('/Prebuild',methods=['POST', 'GET'])
 def PreBuild_Buy():
@@ -315,10 +411,6 @@ def PreBuild_Buy():
         else:
             # pass
             return render_template('error.html')
-
-
-
-
     return redirect(url_for('OverviewPage'))
 
 @app.route('/end',methods=['POST', 'GET'])
