@@ -1,10 +1,11 @@
 <html> 
 <title>SignIn</title>
+<link rel="stylesheet" href='../static/main.css'>
 <body>
-    <link rel="stylesheet" href='../static/main.css'>
-
-        <form action="http://127.0.0.1:5000/Signin" method="post">
-            <div class="flex-container13">
+   
+    <div class="flex-container13">
+        <div>  <form action="http://127.0.0.1:5000/SignIn" method="post">
+            
                 <h2>Please Sign in Here!</h2>
 
                 <p>Username:<input type="text" name="user"></p>
@@ -12,9 +13,12 @@
                 <input class="signin_input" type="submit">
                 <p>Don't have an account?</p>
                 <a href="Register">Sign Up Here</a>
+          
                 <p>{{error}}</p>
+           
+        </div>
             </form>
-    </div>
+   
 </body>
 
 </html>

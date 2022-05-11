@@ -194,6 +194,10 @@ def road_bike():
 def SignIn():
     return render_template('Signin.html')
 
+@app.route('/AdminPage')
+def Admin():
+    return render_template('Signin.html')
+
 @app.route('/Register')## base route for register and adds an admin login
 def Register():
     conn = db_connect()
@@ -201,7 +205,7 @@ def Register():
     pasw = bytes('password', 'utf-8')
     hashed = bcrypt.hashpw(pasw, salt)
     hashed = hashed.decode('utf-8')
-    cur.execute('SELECT * FROM bicycle')
+    cur.execute('SELECT * FROM Bicycle')
     info = cur.fetchall()
     for i in range(0,len(info) + 1):
         if i == len(info):

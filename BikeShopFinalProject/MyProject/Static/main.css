@@ -59,8 +59,8 @@ body {
   background-repeat: no-repeat;
   text-align: center;
   display:flex; 
-  flex-direction:column ; 
-  
+  flex-direction:column; 
+
      }
 
 .flex-container1 > div {
@@ -136,7 +136,10 @@ body {
     
     
   }
-
+.form_prebuild { 
+  width: fit-content;
+  display: inline-flex;
+}
   
   
 
@@ -155,11 +158,15 @@ body {
   text-align: center;
 }
 .flex-container13 > div {
-  background-color: black;
+ color: white;
   margin: 10px;
   padding: 20px;
-  font-size: 30px;
+  font-size: 14px;
   text-align: center;
+  margin-left: 38%;
+  width: 500px;
+  background-color:rgba(27, 27, 27, 0.836);
+    margin-top: 15%;
 }
 .flex-container14 > div {
 
