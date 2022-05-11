@@ -93,6 +93,21 @@ def Insert_Place_Rev():
     cur.close()
     conn.close()
 
+
+
+# functiopn to work on after pull from cart is functional
+def Cart_Counter():
+    counter=0
+    cart=('pass')
+    for items in cart:
+        counter+=1
+
+
+
+
+
+
+
 def Randomize_Review():
     end()
     bike_db()
@@ -348,6 +363,8 @@ def PreBuild_Buy():
 
     return redirect(url_for('accessory'))
 
+
+# function to pull info for cart from db
 @app.route('/Overview',methods=['POST', 'GET'])
 def insert_into_overview():
     if request.method == 'POST':
