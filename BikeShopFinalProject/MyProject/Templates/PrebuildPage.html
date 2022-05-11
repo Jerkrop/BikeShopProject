@@ -1,0 +1,162 @@
+<html> 
+<title>Prebuilt Bikes</title>
+<body>
+    <link rel="stylesheet" href='../static/main.css'>
+
+        
+
+        <div class="navbar">
+            <h1 class="h1StoreHeader" >Bike Shop</h1>
+           
+            <a  href="/" class="Login_Logout">Log out 
+    
+            </a ><ion-icon name="power"></ion-icon>
+            
+            <a href="http://127.0.0.1:5000/">Home</a>
+            <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+              <div class="dropdown">
+              <a class="dropbtn" onclick="myFunction()">Customize
+                
+              </a>
+              <div class="dropdown-content" id="myDropdown">
+                <a href="http://127.0.0.1:5000/Roadbike">Road</a>
+                <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+                <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+                <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+                
+           
+              </div>
+              <a href="http://127.0.0.1:5000/Overview">Cart</a>
+            </div> 
+          </div>  
+           
+          
+            
+          
+    
+    </div>
+      <br>
+     
+      <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("mySlides");
+          let dots = document.getElementsByClassName("dot");
+          if (n > slides.length) {slideIndex = 1}    
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+          }
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";  
+          dots[slideIndex-1].className += " active";
+        }
+        </script>
+    
+    <script>
+    
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+      
+      
+      window.onclick = function(e) {
+        if (!e.target.matches('.dropbtn')) {
+        var myDropdown = document.getElementById("myDropdown");
+          if (myDropdown.classList.contains('show')) {
+            myDropdown.classList.remove('show');
+          }
+        }
+      }
+      </script>
+    
+    
+    </div>
+    <p></p>
+    <div class="flex-container10"> 
+        <h2>Welcome To the Prebuilt Bike Page!</h2>
+        <h3>Please Select One of our Prebuilt Bikes:</h3>
+       
+        <br>
+        <br>
+        <h2>Road Bikes:</h2>
+        
+
+
+
+
+            <br>
+        <br>
+        <br>
+        <h2>Kids Bikes:</h2>
+
+        <form action="{{ url_for('Prebuild')}}" method="post"><button name='kids' value='Kfirst'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Kids Bike 1</p>
+            <p id="cost">$700</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/kink/bk405pur22.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='kids' value='Ksecond'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Kids Bike 2</p>
+            <p id="cost">$750</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/kink/bk405pur22.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='kids' value='Kthird'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Kids Bike 3</p>
+            <p id="cost">$800</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/kink/bk405pur22.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='kids' value='Kfourth'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Kids Bike 4</p>
+            <p id="cost">$850</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/kink/bk405pur22.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='kids' value='Kfifth'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Kids Bike 5</p>
+            <p id="cost">$900</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/kink/bk405pur22.jpg" /></a></button></form>
+
+            <br>
+        <br>
+        <br>
+        <h2>Mountain Bikes:</h2>
+
+          <form action="{{ url_for('Prebuild')}}" method="post"><button name='Mountain' value='Mfirst'><a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Mountain Bike 1</p>
+            <p id="cost">$950</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='Mountain' value='Msecond'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Mountain Bike 2</p>
+            <p id="cost">$1000</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='Mountain' value='Mthird'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Mountain Bike 3</p>
+            <p id="cost">$1100</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='Mountain' value='Mfourth'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Mountain Bike 4</p>
+            <p id="cost">$1200</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='Mountain' value='Mfifth'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Mountain Bike 5</p>
+            <p id="cost">$1300</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+
+       
+            <br>
+        <br>
+       <br>
+       <h2>BMX Bikes:</h2>
+
+       <form action="{{ url_for('Prebuild')}}" method="post"><button name='b' value='Bfirst'><a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bmx Bike 1</p>
+            <p id="cost">$1500</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='b' value='Bsecond'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bmx Bike 2</p>
+            <p id="cost">$1550</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='b' value='Bthird'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bmx Bike 3</p>
+            <p id="cost">$1600</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='b' value='Bfourth'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bmx Bike 4</p>
+            <p id="cost">$1705</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+            <form action="{{ url_for('Prebuild')}}" method="post"><button name='b' value='Bfifth'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bmx Bike 5</p>
+            <p id="cost">$1900</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/surly/bk3506.jpg" /></a></button></form>
+
+        <br>
+
+    </div>
+    <div class="footer2">
+        <p>JeremyDaneWill© </p>
+        <p href="https://www.instagram.com/?hl=en">Instagram</p>
+        <p href="https://twitter.com/">Twitter</p>
+        <p href="https://www.youtube.com/">Youtube</p>
+
+       
+</body>
+
+</html>
