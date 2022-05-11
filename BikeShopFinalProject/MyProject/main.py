@@ -53,7 +53,8 @@ def prebuild_db():
                     BMX varchar(500),
                     Road varchar(500),
                     Kids varchar(500),
-                    price varchar(500)
+                    price varchar(500),
+                    user varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -183,7 +184,7 @@ def PreBuild_Buy():
             print('test')
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike1','na',500))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price) VALUES(%s,%s,%s,%s,%s)',('na','na','Road bike1','na',500,))
             conn.commit()
             cur.close()
             conn.close()
@@ -329,6 +330,25 @@ def PreBuild_Buy():
 
 
     return redirect(url_for('OverviewPage'))
+
+@app.route('/Overview',methods=['POST', 'GET'])
+def insert_into_overview():
+    if request.method == 'POST':
+        bike=request.form('bike')
+        conn = db_connect()
+        cur = conn.cursor()
+        cur.execute('SELECT bike FROM prebuild')(bike)
+        bought = cur.fetchall()
+        conn.commit()
+        cur.close()
+        conn.close()
+        print('works')
+
+    # if request.method == 'GET':
+
+
+
+
 
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
