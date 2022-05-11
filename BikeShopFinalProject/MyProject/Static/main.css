@@ -59,7 +59,8 @@ body {
   background-repeat: no-repeat;
   text-align: center;
   display:flex; 
-  flex-direction:column; 
+  flex-direction:column ; 
+  
      }
 
 .flex-container1 > div {
@@ -125,13 +126,20 @@ body {
   font-size: 30px;
   text-align: center;
 }
-.flex-container10 > div {
-  background-color: black;
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
-  text-align: center;
-}
+.flex-container10  > div {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    
+    
+  }
+
+  
+  
+
 .flex-container11 > div {
   background-color: black;
   margin: 10px;
@@ -238,7 +246,7 @@ li a:hover {
   background-color: #111;
 }
 
-* {box-sizing:border-box}
+* {box-sizing: border-box}
 p
 .slideshow-container {
   max-width: 1000px;
