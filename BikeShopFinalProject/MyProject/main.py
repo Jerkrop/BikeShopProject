@@ -60,6 +60,23 @@ def prebuild_db():
     cur.close()
     conn.close()
 
+def custom_bike_db():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS CustomBike(
+                    Seats varchar(500),
+                    Pedals varchar(500),
+                    HandelBars varchar(500),
+                    Shifters varchar(500),
+                    Chainrings varchar(500),
+                    Chains varchar(500),
+                    Suspension varchar(500),
+                    Tires varchar(500)
+                    )""")
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def Insert_Place_Rev():
     conn = db_connect()
     cur = conn.cursor()
@@ -80,7 +97,7 @@ def Randomize_Review():
     end()
     bike_db()
     prebuild_db()
-    
+    custom_bike_db()
     global daddy
     run_one=0
     if daddy==0:
@@ -329,7 +346,7 @@ def PreBuild_Buy():
 
 
 
-    return redirect(url_for('OverviewPage'))
+    return redirect(url_for('accessory'))
 
 @app.route('/Overview',methods=['POST', 'GET'])
 def insert_into_overview():
