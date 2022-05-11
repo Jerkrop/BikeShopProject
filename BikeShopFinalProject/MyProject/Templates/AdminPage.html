@@ -3,13 +3,22 @@
 <body>
     <link rel="stylesheet" href='../static/main.css'>
 
-    <form action="http://127.0.0.1:5000/Admin" method="POST">
+    <form action="http://127.0.0.1:5000/AdminPage" method="POST">
 
     <div class="flex-container2">
         <h2>Welcome To the Admin Page!</h2>
-
-    </form>
+        <p>image</p>
+        <input type='text' name='image'>
+        <p>desc</p>
+        <input type="text" name='desc'>
+        <p>price</p>
+        <input type="text" name='price'>
+        <br>
+        <input type="submit">
+        <a href="http://127.0.0.1:5000/PrebuildPage">check changes</a>
+        <p>{{error}}</p>
     </div>
+    </form>
 </body>
 
 </html>
