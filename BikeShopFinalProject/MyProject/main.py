@@ -7,10 +7,12 @@ import random
 import bcrypt
 import re
 
+
+
+
+
 daddy=0
-
 daddy2=0
-
 salt = bcrypt.gensalt()
 
 # connects to the database
@@ -71,14 +73,8 @@ def custom_bike_db():
     conn = db_connect()
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS CustomBike(
-                    Seats varchar(500),
-                    Pedals varchar(500),
-                    HandelBars varchar(500),
-                    Shifters varchar(500),
-                    Chainrings varchar(500),
-                    Chains varchar(500),
-                    Suspension varchar(500),
-                    Tires varchar(500)
+                    item varchar(500),
+                    price varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -247,7 +243,7 @@ def login():
                     cur.close()
                     conn.close()
                     print('here')
-                    return redirect(url_for('StorePage'))
+                    return redirect(url_for('random_insertdb'))
                 else:
                     error = "WRONG USERNAME OF PASSWORD"
                     cur.close()
@@ -475,8 +471,37 @@ def insert_into_overview():
         print('works')
 
     # if request.method == 'GET':
-
-
+@app.route('/BMXbikes',methods=['POST', 'GET'])
+def custombike():
+    if request.method == 'POST':
+        print('daddy')
+        button=request.form['bike']
+        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':100},{'name':'Handlebar2', 'price':150},{'name':'Handlebar3', 'price':180}
+        ,{'name':'Handlebar4', 'price':195},{'name':'Handlebar5', 'price':200},{'name':'Shifter1', 'price':100},{'name':'Shifter2', 'price':150},
+        {'name':'Shifter3', 'price':180},{'name':'Shifter4', 'price':195},{'name':'Shifter5', 'price':200},
+        {'name':'Chainring1', 'price':100},{'name':'Chainring2', 'price':150},{'name':'Chainring3', 'price':180},{'name':'Chainring4', 'price':195},{'name':'Chainring5', 'price':200},
+        {'name':'Chain1', 'price':100},{'name':'Chain2', 'price':150},{'name':'Chain3', 'price':180},{'name':'Chain4', 'price':195},{'name':'Chain5', 'price':200},
+        {'name':'Suspension1', 'price':100},{'name':'Suspension2', 'price':150},{'name':'Suspension3', 'price':180},{'name':'Suspension4', 'price':195},{'name':'Suspension5', 'price':200},
+        {'name':'Tire1', 'price':100},{'name':'Tire2', 'price':150},{'name':'Tire3', 'price':180},{'name':'Tire4', 'price':195},{'name':'Tire5', 'price':200},]
+        for i in range(0,len(bike)):
+            print(bike[i]['name'])
+            print(bike[i]['price'])
+            if bike[i]['name'] == button:
+                print('test')
+                value = bike[i]['price'] 
+                item=bike[i]['name']
+                conn = db_connect()
+                cur = conn.cursor()
+                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                conn.commit()
+                cur.close()
+                conn.close()
+            else:
+                pass
+            
+        return redirect(url_for('OverviewPage'))
 
 
 
