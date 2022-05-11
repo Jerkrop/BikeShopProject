@@ -3,15 +3,16 @@
 <body>
     <link rel="stylesheet" href='../static/main.css'>
 
-        <form action="http://127.0.0.1:5000/SignIn" method="post">
+        <form action="http://127.0.0.1:5000/Signin" method="post">
             <div class="flex-container13">
                 <h2>Please Sign in Here!</h2>
 
-                <p>Username:<input type="text" name="username"></p>
-                <p>Password:<input type="text" name="password"></p>
+                <p>Username:<input type="text" name="user"></p>
+                <p>Password:<input type="text" name="pasw"></p>
                 <input class="signin_input" type="submit">
                 <p>Don't have an account?</p>
-                <a href="register">Sign Up Here</a>
+                <a href="Register">Sign Up Here</a>
+                <p>{{error}}</p>
             </form>
     </div>
 </body>
