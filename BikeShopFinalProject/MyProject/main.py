@@ -538,17 +538,6 @@ def custombike2():
                 pass
             
         return redirect(url_for('OverviewPage'))
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/KidsBike',methods=['POST', 'GET'])
 def custombike3():
     if request.method == 'POST':
