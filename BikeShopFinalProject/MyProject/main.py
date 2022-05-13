@@ -539,6 +539,70 @@ def custombike2():
             
         return redirect(url_for('OverviewPage'))
 
+@app.route('/KidsBike',methods=['POST', 'GET'])
+def custombike3():
+    if request.method == 'POST':
+        print('daddy')
+        button=request.form['bike']
+        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
+        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
+        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
+        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
+        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
+        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
+        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
+        for i in range(0,len(bike)):
+            print(bike[i]['name'])
+            print(bike[i]['price'])
+            if bike[i]['name'] == button:
+                print('test')
+                value = bike[i]['price'] 
+                item=bike[i]['name']
+                conn = db_connect()
+                cur = conn.cursor()
+                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                conn.commit()
+                cur.close()
+                conn.close()
+            else:
+                pass
+            
+        return redirect(url_for('OverviewPage'))
+
+
+@app.route('/MountainBikes',methods=['POST', 'GET'])
+def custombike4():
+    if request.method == 'POST':
+        print('daddy')
+        button=request.form['bike']
+        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
+        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
+        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
+        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
+        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
+        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
+        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
+        for i in range(0,len(bike)):
+            print(bike[i]['name'])
+            print(bike[i]['price'])
+            if bike[i]['name'] == button:
+                print('test')
+                value = bike[i]['price'] 
+                item=bike[i]['name']
+                conn = db_connect()
+                cur = conn.cursor()
+                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                conn.commit()
+                cur.close()
+                conn.close()
+            else:
+                pass
+            
+        return redirect(url_for('OverviewPage'))
 
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
