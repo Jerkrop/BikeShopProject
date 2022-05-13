@@ -6,19 +6,23 @@ import psycopg2
 import random
 import bcrypt
 import re
+from bs4 import BeautifulSoup
 
-
-
-active_daddy='test'
 daddy=0
+
 daddy2=0
+
+daddy3 = []
+
+activeuser = ''
+
 salt = bcrypt.gensalt()
 
 # connects to the database
 def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
-        database = 'FinalBike',
+        database = 'bicycle',
         # user = 'postgres',
         # password = 'Meegee12'
     )
@@ -72,9 +76,14 @@ def custom_bike_db():
     conn = db_connect()
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS CustomBike(
-                    item varchar(500),
-                    price varchar(500),
-                    usr varchar(500)
+                    Seats varchar(500),
+                    Pedals varchar(500),
+                    HandelBars varchar(500),
+                    Shifters varchar(500),
+                    Chainrings varchar(500),
+                    Chains varchar(500),
+                    Suspension varchar(500),
+                    Tires varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -150,27 +159,9 @@ def random_insertdb():
     ran=str(ran).strip("'()',")
     return render_template('StorePage.html',ran=ran)
 
-def cart1():
-    global active_daddy
-    conn = db_connect()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM prebuild where usr = %s',[active_daddy])
-    test2=cur.fetchall()
-    print(test2)
-    conn.commit()
-    cur.close()
-    conn.close()
-
-def cart2():
-    global active_daddy
-    conn = db_connect()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM CustomBike where usr = %s',[active_daddy])
-    test3=cur.fetchall()
-    print(test3)
-    conn.commit()
-    cur.close()
-    conn.close()
+@app.route('/AdminPage')
+def AdminPage():
+    return render_template('AdminPage.html')
 
 @app.route('/accessories')
 def accessory():
@@ -192,6 +183,9 @@ def kids_bike():
 def MountainBikes():
     return render_template('/MountainBikes.html')
 
+@app.route('/Overview')
+def OverviewPage():
+    return render_template('/OverviewPage.html')
 
 @app.route('/PaymentPage')
 def PaymentPage():
@@ -209,10 +203,6 @@ def road_bike():
 def SignIn():
     return render_template('Signin.html')
 
-@app.route('/AdminPage')
-def Admin():
-    return render_template('Signin.html')
-
 @app.route('/Register')## base route for register and adds an admin login
 def Register():
     conn = db_connect()
@@ -220,7 +210,7 @@ def Register():
     pasw = bytes('password', 'utf-8')
     hashed = bcrypt.hashpw(pasw, salt)
     hashed = hashed.decode('utf-8')
-    cur.execute('SELECT * FROM Bicycle')
+    cur.execute('SELECT * FROM bicycle')
     info = cur.fetchall()
     for i in range(0,len(info) + 1):
         if i == len(info):
@@ -241,12 +231,6 @@ def endpoint():
 def error():
     return render_template('error.html')
 # connect to the end page and adds the review table for the end page
-
-@app.route('/Overview')
-def OverviewPage():
-    test=cart1()
-    test3=cart2()
-    return render_template('/OverviewPage.html',test=test,test3=test3)
 
 @app.route('/SignIn', methods=['POST'])
 def login():
@@ -272,7 +256,7 @@ def login():
                     cur.close()
                     conn.close()
                     print('here')
-                    return redirect(url_for('random_insertdb'))
+                    return redirect(url_for('StorePage'))
                 else:
                     error = "WRONG USERNAME OF PASSWORD"
                     cur.close()
@@ -337,28 +321,28 @@ def PreBuild_Buy():
             print('test')
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike1','na',500,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike1','na',500,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Rsecond':
             conn = db_connect() 
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike2','na',550,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike2','na',550,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Rthird':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike3','na',600,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike3','na',600,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Rfourth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike4','na',650,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike4','na',650,'usr'))
             conn.commit()
             cur.close()
             conn.close()
@@ -366,112 +350,112 @@ def PreBuild_Buy():
             print('5 works')
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike5','na',700,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike5','na',700,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Kfirst':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike1',500,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike1',500,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Ksecond':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike2',550,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike2',550,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Kthird':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike3',600,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike3',600,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Kfourth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike4',650,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike4',650,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Kfifth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike5',700,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike5',700,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Mfirst':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike1','na','na','na',500,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike1','na','na','na',500,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Msecond':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike2','na','na','na',550,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike2','na','na','na',550,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Mthird':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike3','na','na','na',600,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike3','na','na','na',600,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Mfourth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike4','na','na','na',650,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike4','na','na','na',650,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Mfifth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike5','na','na','na',700,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike5','na','na','na',700,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Bfirst':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike1','na','na',500,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike1','na','na',500,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Bsecond':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike2','na','na',550,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike2','na','na',550,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Bthird':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike3','na','na',600,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike3','na','na',600,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Bfourth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike4','na','na',650,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike4','na','na',650,'usr'))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Bfifth':
             conn = db_connect()
             cur = conn.cursor()
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike5','na','na',700,active_daddy))
+            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike5','na','na',700,'usr'))
             conn.commit()
             cur.close()
             conn.close()
@@ -498,152 +482,8 @@ def insert_into_overview():
         cur.close()
         conn.close()
         print('works')
-    return render_template('Overview.html')
+
     # if request.method == 'GET':
-@app.route('/BMXbikes',methods=['POST', 'GET'])
-def custombike1():
-    if request.method == 'POST':
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
-            
-        return redirect(url_for('OverviewPage'))
-
-@app.route('/RoadBike',methods=['POST', 'GET'])
-def custombike2():
-    if request.method == 'POST':
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
-            
-        return redirect(url_for('OverviewPage'))
-@app.route('/KidsBike',methods=['POST', 'GET'])
-def custombike3():
-    if request.method == 'POST':
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
-            
-        return redirect(url_for('OverviewPage'))
-
-
-@app.route('/MountainBikes',methods=['POST', 'GET'])
-def custombike4():
-    if request.method == 'POST':
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
-            
-        return redirect(url_for('OverviewPage'))
-
-
-# @app.route('Overview',methods=['POST', 'GET'])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -704,7 +544,63 @@ def Review_db_Insert():
         daddy2 +=1
 
         return redirect(url_for('random_insertdb', ran = review))
-
+# @app.route('/',methods=['POST', 'GET'])
+# def Review_Main():
+#     # if request.method == 'GET':
+#     #     review = request.form['review']
+#     #     # five = request.form['five' or 'four' or 'three' or 'two' or 'one']
+#     #     # conn = db_connect()
+#     #     # cur = conn.cursor()
+#     #     # cur.execute('SELECT * FROM Bikerev WHERE five_star = This place is wonderful (five_star)'(review))
+#     #     # cur.close()
+#     #     # conn.close()
+        
+#     #     return render_template('StorePage.html')
+#     pass
+@app.route('/AdminPage', methods=['POST'])
+def changes():
+    if request.method == 'POST':
+        global daddy3
+        conn = db_connect()
+        cur = conn.cursor()
+        image = request.form['image']
+        descrip = request.form['desc']
+        price = request.form['price']
+        entry = request.form['entry']
+        print(entry)
+        if descrip == '' or price == '' or image == '':
+            error = 'No fields can be empty'
+            cur.close()
+            conn.close()
+            return render_template('AdminPage.html', error = error)
+        elif image.endswith('jpg') == True or image.endswith('jpeg') == True or image.endswith('png') == True :
+            for i in range(0, len(daddy3) + 1):
+                if i == len(daddy3):
+                    new_bike = {'name':descrip,'price':price}
+                    daddy3.append(new_bike)
+                    print(daddy3)
+                    break
+                if daddy3[i]['name'] == descrip:
+                    daddy3[i]['price'] = price
+                    break
+            with open("/Users/williemdevenney/Desktop/BikeShopProject/BikeShopFinalProject/MyProject/Templates/PrebuildPage.html", 'r+') as fp:
+                error = 'Changes saved'
+                soup = BeautifulSoup(fp, 'html.parser')
+                img = soup.find('img', {'id':entry})
+                print(img)
+                img['src'] = image
+                desc = soup.find('p', {'id':entry})
+                desc.string = descrip
+                cost = soup.find('cost', {'id':entry})
+                cost.string = price
+                fp.truncate(0)
+                fp.write(str(soup))
+                return render_template('AdminPage.html', error = error)
+        else:
+            error = 'Not an acceptable link'
+            cur.close()
+            conn.close()
+            return render_template('AdminPage.html', error = error)
 
 
 
