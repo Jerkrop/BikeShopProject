@@ -76,14 +76,9 @@ def custom_bike_db():
     conn = db_connect()
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS CustomBike(
-                    Seats varchar(500),
-                    Pedals varchar(500),
-                    HandelBars varchar(500),
-                    Shifters varchar(500),
-                    Chainrings varchar(500),
-                    Chains varchar(500),
-                    Suspension varchar(500),
-                    Tires varchar(500)
+                    item varchar(500),
+                    price varchar(500),
+                    usr varchar(500)
                     )""")
     conn.commit()
     cur.close()
@@ -125,6 +120,7 @@ def cart1():
     conn.commit()
     cur.close()
     conn.close()
+    return test2
 
 def cart2():
     global activeuser
@@ -136,6 +132,7 @@ def cart2():
     conn.commit()
     cur.close()
     conn.close()
+    return test3
 
 
 
@@ -206,9 +203,16 @@ def MountainBikes():
 
 @app.route('/Overview')
 def OverviewPage():
-    test=cart1()
+    # test=cart1()
     test3=cart2()
-    return render_template('/OverviewPage.html',test=test,test3=test3)
+    print(test3)
+    parts = []
+    prices = []
+    for i in range(0, len(test3)):
+        parts.append(test3[i][0])
+        prices.append(test3[i][1])
+
+    return render_template('/OverviewPage.html',test=prices,test3=parts)
     
 @app.route('/PaymentPage')
 def PaymentPage():
@@ -279,7 +283,7 @@ def login():
                     cur.close()
                     conn.close()
                     print('here')
-                    return redirect(url_for('StorePage'))
+                    return redirect(url_for('random_insertdb'))
                 else:
                     error = "WRONG USERNAME OF PASSWORD"
                     cur.close()
@@ -576,6 +580,7 @@ def Review_db_Insert():
 def custombike1():
     if request.method == 'POST':
         print('daddy')
+        global activeuser
         button=request.form['bike']
         bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
         ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
@@ -595,7 +600,7 @@ def custombike1():
                 item=bike[i]['name']
                 conn = db_connect()
                 cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
                 conn.commit()
                 cur.close()
                 conn.close()
@@ -608,6 +613,7 @@ def custombike1():
 @app.route('/MountainBikes',methods=['POST', 'GET'])
 def custombike2():
     if request.method == 'POST':
+        global activeuser
         print('daddy')
         button=request.form['bike']
         bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
@@ -628,7 +634,7 @@ def custombike2():
                 item=bike[i]['name']
                 conn = db_connect()
                 cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
                 conn.commit()
                 cur.close()
                 conn.close()
@@ -636,6 +642,7 @@ def custombike2():
                 pass
 
         return redirect(url_for('MountainBikes'))
+
 @app.route('/BMXbikes',methods=['POST', 'GET'])
 def custombike3():
     if request.method == 'POST':
@@ -659,18 +666,19 @@ def custombike3():
                 item=bike[i]['name']
                 conn = db_connect()
                 cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
                 conn.commit()
                 cur.close()
                 conn.close()
             else:
                 pass
 
-        return redirect(url_for('BMXBikes'))
+        return redirect(url_for('BMXbikes'))
 
 @app.route('/RoadBike',methods=['POST', 'GET'])
 def custombike4():
     if request.method == 'POST':
+        global activeuser
         print('daddy')
         button=request.form['bike']
         bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
@@ -691,7 +699,7 @@ def custombike4():
                 item=bike[i]['name']
                 conn = db_connect()
                 cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price) VALUES(%s,%s)',(item,value))
+                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
                 conn.commit()
                 cur.close()
                 conn.close()
@@ -745,7 +753,9 @@ def changes():
             conn.close()
             return render_template('AdminPage.html', error = error)
 
+def cart():
 
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)
