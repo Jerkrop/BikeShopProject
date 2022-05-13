@@ -14,6 +14,8 @@ daddy2=0
 
 daddy3 = []
 
+activeuser = ''
+
 salt = bcrypt.gensalt()
 
 # connects to the database
