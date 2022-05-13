@@ -6,10 +6,13 @@ import psycopg2
 import random
 import bcrypt
 import re
+from bs4 import BeautifulSoup
 
 daddy=0
 
 daddy2=0
+
+daddy3 = []
 
 salt = bcrypt.gensalt()
 
@@ -17,7 +20,7 @@ salt = bcrypt.gensalt()
 def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
-        database = 'FinalBike',
+        database = 'bicycle',
         # user = 'postgres',
         # password = 'Meegee12'
     )
@@ -153,6 +156,10 @@ def random_insertdb():
     ran=random.choice(b)
     ran=str(ran).strip("'()',")
     return render_template('StorePage.html',ran=ran)
+
+@app.route('/AdminPage')
+def AdminPage():
+    return render_template('AdminPage.html')
 
 @app.route('/accessories')
 def accessory():
@@ -548,7 +555,50 @@ def Review_db_Insert():
         
 #     #     return render_template('StorePage.html')
 #     pass
-
+@app.route('/AdminPage', methods=['POST'])
+def changes():
+    if request.method == 'POST':
+        global daddy3
+        conn = db_connect()
+        cur = conn.cursor()
+        image = request.form['image']
+        descrip = request.form['desc']
+        price = request.form['price']
+        entry = request.form['entry']
+        print(entry)
+        if descrip == '' or price == '' or image == '':
+            error = 'No fields can be empty'
+            cur.close()
+            conn.close()
+            return render_template('AdminPage.html', error = error)
+        elif image.endswith('jpg') == True or image.endswith('jpeg') == True or image.endswith('png') == True :
+            for i in range(0, len(daddy3) + 1):
+                if i == len(daddy3):
+                    new_bike = {'name':descrip,'price':price}
+                    daddy3.append(new_bike)
+                    print(daddy3)
+                    break
+                if daddy3[i]['name'] == descrip:
+                    daddy3[i]['price'] = price
+                    break
+            with open("/Users/williemdevenney/Desktop/BikeShopProject/BikeShopFinalProject/MyProject/Templates/PrebuildPage.html", 'r+') as fp:
+                error = 'Changes saved'
+                soup = BeautifulSoup(fp, 'html.parser')
+                img = soup.find('img', {'id':entry})
+                print(img)
+                img['src'] = image
+                desc = soup.find('p', {'id':entry})
+                desc.string = descrip
+                cost = soup.find('cost', {'id':entry})
+                cost.string = price
+                fp.truncate(0)
+                fp.write(str(soup))
+                return render_template('AdminPage.html', error = error)
+        else:
+            error = 'Not an acceptable link'
+            cur.close()
+            conn.close()
+            return render_template('AdminPage.html', error = error)
 
 
 
