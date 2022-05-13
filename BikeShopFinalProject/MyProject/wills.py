@@ -38,7 +38,7 @@ def Register():
     info = cur.fetchall()
     for i in range(0,len(info) + 1):
         if i == len(info):
-            cur.execute('INSERT INTO bicycle(name, pass) VALUES(%s, %s)', ('admin',hashed))
+            cur.execute('INSERT INTO bicycle(usr, pass) VALUES(%s, %s)', ('admin',hashed))
             break
         if info[i][3] == 'admin':
             break
@@ -78,13 +78,13 @@ def registration():
         conn.commit()
         cur.close()
         conn.close()
-        return redirect(url_for('Signin'))
+        return redirect(url_for('SignIn'))
 
-@app.route('/Signin')
-def Signin():
-    return render_template('Signin.html')
+@app.route('/SignIn')
+def SignIn():
+    return render_template('SignIn.html')
 
-@app.route('/Signin', methods=['POST'])
+@app.route('/SignIn', methods=['POST'])
 def login():
     if request.method == 'POST':
         conn = get_db_connection()
@@ -114,11 +114,11 @@ def login():
                     cur.close()
                     conn.close()
                     print('here')
-                    return render_template('Signin.html', error = error)
+                    return render_template('SignIn.html', error = error)
         error = "WRONG USERNAME OF PASSWORD"
         cur.close()
         conn.close()
-        return render_template('Signin.html', error = error)
+        return render_template('SignIn.html', error = error)
 
 @app.route('/StorePage')
 def StorePage():
@@ -137,6 +137,8 @@ def changes():
         image = request.form['image']
         descrip = request.form['desc']
         price = request.form['price']
+        entry = request.form['entry']
+        print(entry)
         if descrip == '' or price == '' or image == '':
             error = 'No fields can be empty'
             cur.close()
@@ -148,16 +150,19 @@ def changes():
                     new_bike = {'name':descrip,'price':price}
                     daddy3.append(new_bike)
                     print(daddy3)
+                    break
                 if daddy3[i]['name'] == descrip:
                     daddy3[i]['price'] = price
+                    break
             with open("/Users/williemdevenney/Desktop/BikeShopProject/BikeShopFinalProject/MyProject/Templates/PrebuildPage.html", 'r+') as fp:
                 error = 'Changes saved'
                 soup = BeautifulSoup(fp, 'html.parser')
-                img = soup.find('img', {'id':'img'})
+                img = soup.find('img', {'id':entry})
+                print(img)
                 img['src'] = image
-                desc = soup.find('p', {'id':'desc'})
+                desc = soup.find('p', {'id':entry})
                 desc.string = descrip
-                cost = soup.find('p', {'id':'cost'})
+                cost = soup.find('cost', {'id':entry})
                 cost.string = price
                 fp.truncate(0)
                 fp.write(str(soup))
@@ -168,8 +173,8 @@ def changes():
             conn.close()
             return render_template('AdminPage.html', error = error)
 
-@app.route('/PrebuildPage')
-def PrebuildPage():
+@app.route('/Prebuild')
+def Prebuild():
     return render_template('PrebuildPage.html')
 
 if __name__ == '__main__':
