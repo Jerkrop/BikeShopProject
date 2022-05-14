@@ -2,14 +2,136 @@
 <title>AccessoryPage</title>
 <link rel="stylesheet" href='../static/main.css'>
 <body>
- 
-    <div class="flex-container1">
-    <form action="http://127.0.0.1:5000/accessories" method="POST">
-
     
+    <form action="http://127.0.0.1:5000/accessories" method="POST">
+            <div class="navbar">
+        <h1 class="h1StoreHeader">Bike Shop</h1>
+        <a class="Login_Logout" href="/">Log out 
+            
+                    </a><ion-icon name="power"></ion-icon>
+        <a href="http://127.0.0.1:5000/">Home</a>
+        <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+        <div class="dropdown">
+        <a class="dropbtn" onclick="myFunction()">Customize
+                        
+                      </a>
+        <div class="dropdown-content" id="myDropdown">
+        <a href="http://127.0.0.1:5000/Roadbike">Road</a>
+        <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+        <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+        <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+        </div>
+        <a href="http://127.0.0.1:5000/Overview">Cart</a>
+        </div>
+        </div>
+        <br/>
+        <script>
+                let slideIndex = 1;
+                showSlides(slideIndex);
+                
+                function plusSlides(n) {
+                  showSlides(slideIndex += n);
+                }
+                
+                function currentSlide(n) {
+                  showSlides(slideIndex = n);
+                }
+                
+                function showSlides(n) {
+                  let i;
+                  let slides = document.getElementsByClassName("mySlides");
+                  let dots = document.getElementsByClassName("dot");
+                  if (n > slides.length) {slideIndex = 1}    
+                  if (n < 1) {slideIndex = slides.length}
+                  for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";  
+                  }
+                  for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                  }
+                  slides[slideIndex-1].style.display = "block";  
+                  dots[slideIndex-1].className += " active";
+                }
+                </script>
+        <script>
+            
+              function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+              }
+              
+              
+              window.onclick = function(e) {
+                if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                  if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                  }
+                }
+              }
+              </script>
+    
+    
+
+    <div class="flex-container1">
      <h2>Welcome To the Accessory Page!</h2>
+     <h3>Please Select One of Our Signature Accessories:</h3>
+ <br>
+        <br>
+        <h2>Helmets:</h2>
+        
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Seat1'><a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Helmet  1</p>
+            <p id="cost">$50</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/60921-0102.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Seat2'><a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Helmet 2</p>
+            <p id="cost">$50</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/60921-0102.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Seat3'><a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Helmet 3</p>
+            <p id="cost">$60</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/specialized/60921-0102.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Seat4'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Helmet 4</p>
+            <p id="cost">$65</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/lazer/blc2217889730.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Seat5'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"> <p id="desc">Helmet 5</p>
+            <p id="cost">$70</p><img id="img" title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/lazer/blc2217889730.jpg" /></a></button></form>
+
+            <br>
+        <br>
+        <br>
+        <h2>Bells & Horns:</h2>
+        <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Pedal1'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bell 1</p>
+            <p id="cost">$100</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/knog/n6012126.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Pedal2'>> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bell 2</p>
+            <p id="cost">$150</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/knog/n6012126.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Pedal3'>  <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Bell 3</p>
+            <p id="cost">$180</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/knog/n6012126.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Pedal4'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Horn 1</p>
+            <p id="cost">$195</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/dimension/nh-44910.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Pedal5'> <a  class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Horn 2</p>
+            <p id="cost">$200</p><img id="img" title="Click Here To Go to the Overview Page " src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/dimension/nh-44910.jpg" /></a></button></form>
+
+            <br>
+        <br>
+        <br>
+        <h2>Lights:</h2>
+        <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Handlebar1'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Lights 1</p>
+            <p id="cost">$150</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/supernova/ntr2-gry.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Handlebar2'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Lights 2</p>
+            <p id="cost">$200</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/supernova/n-p3-mblk.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Handlebar3'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Lights 3</p>
+            <p id="cost">$210</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/supernova/m-stk-blk.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Handlebar4'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Lights 4</p>
+            <p id="cost">$220</p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/supernova/ntr2-blk.jpg" /></a></button></form>
+            <form class="form_"action="http://127.0.0.1:5000/RoadBike" method="POST" ><button name='bike' value='Handlebar5'> <a class="prebuilt_" href="http://127.0.0.1:5000/Overview"><p id="desc">Lights 5</p>
+            <p id="cost">$230 </p><img id="img"title="Click Here To Go to the Overview Page" src="https://images.performancebike.com/cdn-cgi/image/f=auto,width=200/images/large/bikes/cygolite/mtr-800-150.jpg" /></a></button></form>
+
+       
+            <br>
+
+
+     <div class="footer2">
+        <p>JeremyDaneWill© </p>
+        <a href="https://www.instagram.com/?hl=en">Instagram</a>
+        <a href="https://twitter.com/">Twitter</a>
+        <a href="https://www.youtube.com/">Youtube</a>
+        </div>
     </form>
-    </div>
+    
 </body>
 
 </html>
