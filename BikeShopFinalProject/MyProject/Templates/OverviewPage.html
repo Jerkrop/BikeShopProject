@@ -4,14 +4,45 @@
     <link rel="stylesheet" href='../static/main.css'>
 
     <form action="http://127.0.0.1:5000/Overview" method="POST">
-    <div class="flex-container8">
+        <div class="navbar">
+            <h1 class="h1StoreHeader" >Bike Shop</h1>
+           
+            <a  href="/" class="Login_Logout">Log out 
+    
+            </a ><ion-icon name="power"></ion-icon>
+            
+            <a href="http://127.0.0.1:5000/">Home</a>
+            <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+              <div class="dropdown">
+              <a style="background-color: #f44336;" class="dropbtn" onclick="myFunction()">Customize/Parts
+                
+              </a>
+              <div class="dropdown-content" id="myDropdown">
+                <a  style="color:  black" href="http://127.0.0.1:5000/Roadbike">Road</a>
+                    <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+                <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+                <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+                
+           
+              </div>
+              <a href="http://127.0.0.1:5000/accessories">Accessories</a> 
+              <a href="http://127.0.0.1:5000/Overview">Cart</a>
+           
+            </div> 
+          </div>  
         
         <h2>Welcome To The Cart Page!</h2>
         <p>Total={{test}}</p>
         <p>items {{test3}}</p>
         <p>item price {{test4}}</p>
+        <button class="payment_button" action="http://127.0.0.1:5000/PaymentPage">PAY HERE!</button>
     </div> 
 </form>
+<div class="footer">
+    <p>JeremyDaneWill© </p>
+    <a href="https://www.instagram.com/?hl=en">Instagram</a>
+    <a href="https://twitter.com/">Twitter</a>
+    <a href="https://www.youtube.com/">Youtube</a>
 </body>
 
 </html>
