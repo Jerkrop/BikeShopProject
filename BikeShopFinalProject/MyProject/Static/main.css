@@ -448,7 +448,9 @@ a:hover, a:active {
 .dropdown-content a:hover {
   background-color: red;
 }
+:hover { 
 
+}
 .show {
   display: block;
 }
@@ -468,7 +470,7 @@ a:hover, a:active {
   margin-top:auto;
 }
 .payment_button { 
-  background-color: red;
+  background-color: #f44336;
   text-align: center;
   outline: #111;
   color: white;
@@ -493,4 +495,21 @@ a:hover, a:active {
 }
 .p_align3 { 
   margin-right: 25px;
+}
+.p_payment1 { 
+  margin-right: -15px;
+}
+.p_payment2 { 
+  margin-right: 5px;
+}
+.Payment_input { 
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 75px;
 }
