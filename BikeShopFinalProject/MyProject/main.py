@@ -84,6 +84,20 @@ def custom_bike_db():
     cur.close()
     conn.close()
 
+def bicycle():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS bicycle (
+                    id bigserial,
+                    name varchar(255),
+                    email varchar(255),
+                    usr varchar(255),
+                    pass varchar(255)
+                    )""")
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def Insert_Place_Rev():
     conn = db_connect()
     cur = conn.cursor()
@@ -186,7 +200,7 @@ def accessories():
     return render_template('AccessoryPage.html')
 
 @app.route('/BMXbikes')
-def bmx_bikes():
+def BMXbikes():
     return render_template('BMXbikes.html')
 
 @app.route('/CustomizationBikePage')
@@ -194,7 +208,7 @@ def customization_bike():
     return render_template('CustomizationBikePage.html')
     
 @app.route('/KidsBikes')
-def kids_bike():
+def KidsBikes():
     return render_template('KidsBikes.html')
 
 @app.route('/MountainBikes')
@@ -222,9 +236,9 @@ def PaymentPage():
 def Prebuild():
     return render_template('/PrebuildPage.html')
 
-@app.route('/Roadbike')
-def road_bike():
-    return render_template('Roadbikes.html')
+@app.route('/RoadBikes')
+def RoadBikes():
+    return render_template('RoadBikes.html')
 
 @app.route('/SignIn')
 def SignIn():
@@ -576,7 +590,7 @@ def Review_db_Insert():
 
 
 
-@app.route('/KidsBike',methods=['POST', 'GET'])
+@app.route('/KidsBikes',methods=['POST', 'GET'])
 def custombike1():
     if request.method == 'POST':
         print('daddy')
@@ -607,7 +621,7 @@ def custombike1():
             else:
                 pass
 
-        return redirect(url_for('KidsBike'))
+        return redirect(url_for('KidsBikes'))
 
 
 @app.route('/MountainBikes',methods=['POST', 'GET'])
@@ -675,7 +689,7 @@ def custombike3():
 
         return redirect(url_for('BMXbikes'))
 
-@app.route('/RoadBike',methods=['POST', 'GET'])
+@app.route('/RoadBikes',methods=['POST', 'GET'])
 def custombike4():
     if request.method == 'POST':
         global activeuser
@@ -706,7 +720,7 @@ def custombike4():
             else:
                 pass
 
-        return redirect(url_for('RoadBike'))
+        return redirect(url_for('RoadBikes'))
 
 @app.route('/AdminPage', methods=['POST'])
 def changes():
