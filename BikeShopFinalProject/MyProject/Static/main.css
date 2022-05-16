@@ -467,3 +467,21 @@ a:hover, a:active {
   text-align: center;
   margin-top:auto;
 }
+.payment_button { 
+  background-color: red;
+  text-align: center;
+  outline: #111;
+  color: white;
+}
+.button_adminpage { 
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: red;
+  margin-left: 42%;
+}
+.button_adminpage2 { 
+  margin-top: 5px;
+}
