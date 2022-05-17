@@ -23,8 +23,8 @@ def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
         database = 'FinalBike',
-        # user = 'postgres',
-        # password = 'Meegee12'
+        user = 'postgres',
+        password = 'Meegee12'
     )
     return conn
 
