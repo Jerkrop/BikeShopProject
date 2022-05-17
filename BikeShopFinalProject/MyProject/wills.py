@@ -19,7 +19,7 @@ app = Flask(__name__)
 def get_db_connection():
     conn = psycopg2.connect(
         host = 'localhost',
-        database = 'bicycle'
+        database = 'FinalBike'
     )
     return conn
 
