@@ -31,13 +31,16 @@
             </div> 
           </div>  
         
-        <h2>Welcome To The Cart Page!</h2>
-        <p>Total={{test}}</p>
-        <p>items {{test3}}</p>
-        <p>item price {{test4}}</p>
-        {{prebuild}}
-        <button class="payment_button" action="http://127.0.0.1:5000/PaymentPage">PAY HERE!</button>
-    </div> 
+        <h2 style="">Welcome To The Cart Page!</h2>
+        <h3 class="list_p">price</h3>
+        {% for item in test%}
+        <ul class="flexbox1" style="list-style-type:none;">
+          <li>{{item}}</li>
+        </ul>
+        {% endfor %}
+        
+        <button class="payment_button" action="http://127.0.0.1:5000/PaymentPage" >PAY HERE!</button>
+    </div>
 </form>
 <div class="footer">
     <p>JeremyDaneWill© </p>

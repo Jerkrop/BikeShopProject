@@ -250,7 +250,10 @@ li {
   float: left;
   
 }
-
+.flexbox1 { 
+  color:white;
+  width: 5%;
+}
 
 li a {
   display: block;
