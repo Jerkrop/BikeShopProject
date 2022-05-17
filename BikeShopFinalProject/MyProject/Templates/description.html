@@ -1,0 +1,81 @@
+<html>
+<title>Prebuilt Bikes</title>
+<body>
+<link href="../static/main.css" rel="stylesheet"/>
+<div class="navbar">
+<h1 class="h1StoreHeader">Bike Shop</h1>
+<a class="Login_Logout" href="/">Log out 
+    
+            </a><ion-icon name="power"></ion-icon>
+<a href="http://127.0.0.1:5000/">Home</a>
+<a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+<div class="dropdown">
+<a class="dropbtn" onclick="myFunction()">Customize
+                
+              </a>
+<div class="dropdown-content" id="myDropdown">
+<a href="http://127.0.0.1:5000/Roadbike">Road</a>
+<a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+<a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+<a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+</div>
+<a href="http://127.0.0.1:5000/Overview">Cart</a>
+</div>
+</div>
+<br/>
+<script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("mySlides");
+          let dots = document.getElementsByClassName("dot");
+          if (n > slides.length) {slideIndex = 1}    
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+          }
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";  
+          dots[slideIndex-1].className += " active";
+        }
+        </script>
+<script>
+    
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+      
+      
+      window.onclick = function(e) {
+        if (!e.target.matches('.dropbtn')) {
+        var myDropdown = document.getElementById("myDropdown");
+          if (myDropdown.classList.contains('show')) {
+            myDropdown.classList.remove('show');
+          }
+        }
+      }
+      </script>
+<p></p>
+<div class="flex-container10">
+<h2>Placeholder?</h2>
+<h3>{{desc}}</h3>
+</div>
+<div class="footer2">
+<p>JeremyDaneWill© </p>
+<a href="https://www.instagram.com/?hl=en">Instagram</a>
+<a href="https://twitter.com/">Twitter</a>
+<a href="https://www.youtube.com/">Youtube</a>
+</div></body>
+</html>
