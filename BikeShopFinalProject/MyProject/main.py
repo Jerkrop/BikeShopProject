@@ -260,6 +260,10 @@ def RoadBikes():
 def SignIn():
     return render_template('Signin.html')
 
+@app.route('/description')
+def description():
+    return render_template('description.html')
+
 @app.route('/Register')## base route for register and adds an admin login
 def Register():
     conn = db_connect()
@@ -339,7 +343,7 @@ def registration():
         if mail == '' or user == '' or pasw == '' or name == '':
             error = 'Fields can not be left empty!'
             return render_template('Register.html', error = error)
-        if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$',pasw):
+        if not re.match("^(?=.{7,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$",pasw):
             error = 'The password is not strong enough!'
             return render_template('Register.html', error = error)
         for i in range(0,len(info)):
@@ -365,20 +369,16 @@ def PreBuild_Buy():
     if request.method == 'POST':
         # bikes=request.form['Road' or 'kids' or 'Mountain' or 'b'or 'Road1' or'Road2'or 'Road3' or 'Road4' ]
         bikes = request.form.to_dict()
-        print(bikes)
         bikes = bikes.values()
-        print(bikes)
         bikes = list(bikes)
-        print(bikes)
         bikes = bikes[0]
-        print(bikes)
         # kids=request.form['kids']
         # Mountain=request.form['Mountain']
         # b=request.form['b']
         if bikes =='Rfirst':
-            print('test')
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder1'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike1',500,activeuser))
             conn.commit()
             cur.close()
@@ -386,6 +386,7 @@ def PreBuild_Buy():
         elif bikes =='Rsecond':
             conn = db_connect() 
             cur = conn.cursor()
+            desc = 'placeholder2'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike2',550,activeuser))
             conn.commit()
             cur.close()
@@ -393,6 +394,7 @@ def PreBuild_Buy():
         elif bikes =='Rthird':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder3'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike3',600,activeuser))
             conn.commit()
             cur.close()
@@ -400,14 +402,15 @@ def PreBuild_Buy():
         elif bikes =='Rfourth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder4'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike4',650,activeuser))
             conn.commit()
             cur.close()
             conn.close()
         elif bikes =='Rfifth':
-            print('5 works')
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder5'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike5',700,activeuser))
             conn.commit()
             cur.close()
@@ -415,6 +418,7 @@ def PreBuild_Buy():
         elif bikes =='Kfirst':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder6'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike1',500,activeuser))
             conn.commit()
             cur.close()
@@ -422,6 +426,7 @@ def PreBuild_Buy():
         elif bikes =='Ksecond':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder7'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('kids bike2',550,activeuser))
             conn.commit()
             cur.close()
@@ -429,6 +434,7 @@ def PreBuild_Buy():
         elif bikes =='Kthird':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder8'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike3',600,activeuser))
             conn.commit()
             cur.close()
@@ -436,6 +442,7 @@ def PreBuild_Buy():
         elif bikes =='Kfourth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder9'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike4',650,activeuser))
             conn.commit()
             cur.close()
@@ -443,6 +450,7 @@ def PreBuild_Buy():
         elif bikes =='Kfifth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder10'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike5',700,activeuser))
             conn.commit()
             cur.close()
@@ -450,6 +458,7 @@ def PreBuild_Buy():
         elif bikes =='Mfirst':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder11'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike1',500,activeuser))
             conn.commit()
             cur.close()
@@ -457,6 +466,7 @@ def PreBuild_Buy():
         elif bikes =='Msecond':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder12'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike2',550,activeuser))
             conn.commit()
             cur.close()
@@ -464,6 +474,7 @@ def PreBuild_Buy():
         elif bikes =='Mthird':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder13'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike3',600,activeuser))
             conn.commit()
             cur.close()
@@ -471,6 +482,7 @@ def PreBuild_Buy():
         elif bikes =='Mfourth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder14'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike4',650,activeuser))
             conn.commit()
             cur.close()
@@ -478,6 +490,7 @@ def PreBuild_Buy():
         elif bikes =='Mfifth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder15'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike5',700,activeuser))
             conn.commit()
             cur.close()
@@ -485,6 +498,7 @@ def PreBuild_Buy():
         elif bikes =='Bfirst':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder16'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike1',500,activeuser))
             conn.commit()
             cur.close()
@@ -492,6 +506,7 @@ def PreBuild_Buy():
         elif bikes =='Bsecond':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder17'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike2',550,activeuser))
             conn.commit()
             cur.close()
@@ -499,6 +514,7 @@ def PreBuild_Buy():
         elif bikes =='Bthird':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder18'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike3',600,activeuser))
             conn.commit()
             cur.close()
@@ -506,6 +522,7 @@ def PreBuild_Buy():
         elif bikes =='Bfourth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder19'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike4',650,activeuser))
             conn.commit()
             cur.close()
@@ -513,6 +530,7 @@ def PreBuild_Buy():
         elif bikes =='Bfifth':
             conn = db_connect()
             cur = conn.cursor()
+            desc = 'placeholder20'
             cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike5',700,activeuser))
             conn.commit()
             cur.close()
@@ -524,7 +542,7 @@ def PreBuild_Buy():
 
 
 
-    return redirect(url_for('Prebuild'))
+    return render_template('description.html', desc=desc)
 
 
 # function to pull info for cart from db
