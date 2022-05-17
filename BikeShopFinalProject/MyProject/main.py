@@ -61,10 +61,7 @@ def prebuild_db():
     conn = db_connect()
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS prebuild(
-                    Mountain varchar(500),
-                    BMX varchar(500),
-                    Road varchar(500),
-                    Kids varchar(500),
+                    Name varchar(500),
                     price varchar(500),
                     usr varchar(500)
                     )""")
@@ -230,7 +227,7 @@ def MountainBikes():
 
 @app.route('/Overview')
 def OverviewPage():
-    # test=cart1()
+    test=cart1()
     test3=cart2()
     print(test3)
     parts = []
@@ -245,7 +242,7 @@ def OverviewPage():
 
        
 
-    return render_template('/OverviewPage.html',test=sums,test3=parts,test4=prices)
+    return render_template('/OverviewPage.html',test=sums,test3=parts,test4=prices,prebuild=test)
     
 @app.route('/PaymentPage')
 def PaymentPage():
@@ -368,6 +365,7 @@ def registration():
 
 @app.route('/Prebuild',methods=['POST', 'GET'])
 def PreBuild_Buy():
+    global activeuser
     if request.method == 'POST':
         # bikes=request.form['Road' or 'kids' or 'Mountain' or 'b'or 'Road1' or'Road2'or 'Road3' or 'Road4' ]
         bikes = request.form.to_dict()
@@ -381,7 +379,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder1'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike1','na',500,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike1',500,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -389,7 +387,7 @@ def PreBuild_Buy():
             conn = db_connect() 
             cur = conn.cursor()
             desc = 'placeholder2'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike2','na',550,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike2',550,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -397,7 +395,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder3'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike3','na',600,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike3',600,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -405,7 +403,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder4'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike4','na',650,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike4',650,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -413,7 +411,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder5'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','Road bike5','na',700,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike5',700,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -421,7 +419,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder6'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike1',500,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike1',500,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -429,7 +427,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder7'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike2',550,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('kids bike2',550,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -437,7 +435,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder8'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike3',600,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike3',600,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -445,7 +443,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder9'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike4',650,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike4',650,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -453,7 +451,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder10'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','na','na','kids bike5',700,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike5',700,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -461,7 +459,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder11'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike1','na','na','na',500,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike1',500,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -469,7 +467,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder12'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike2','na','na','na',550,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike2',550,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -477,7 +475,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder13'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike3','na','na','na',600,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike3',600,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -485,7 +483,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder14'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike4','na','na','na',650,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike4',650,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -493,7 +491,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder15'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('Mountain Bike5','na','na','na',700,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike5',700,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -501,7 +499,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder16'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike1','na','na',500,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike1',500,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -509,7 +507,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder17'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike2','na','na',550,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike2',550,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -517,7 +515,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder18'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike3','na','na',600,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike3',600,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -525,7 +523,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder19'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike4','na','na',650,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike4',650,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -533,7 +531,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder20'
-            cur.execute('INSERT INTO prebuild (Mountain,BMX,Road,kids,price,usr) VALUES(%s,%s,%s,%s,%s,%s)',('na','BMX bike5','na','na',700,'usr'))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike5',700,activeuser))
             conn.commit()
             cur.close()
             conn.close()
@@ -548,21 +546,20 @@ def PreBuild_Buy():
 
 
 # function to pull info for cart from db
-@app.route('/Overview',methods=['POST', 'GET'])
-def insert_into_overview():
-    if request.method == 'POST':
-        bike=request.form('bike')
-        conn = db_connect()
-        cur = conn.cursor()
-        cur.execute('SELECT bike FROM prebuild')(bike)
-        bought = cur.fetchall()
-        conn.commit()
-        cur.close()
-        conn.close()
-        print('works')
+# @app.route('/Overview',methods=['POST', 'GET'])
+# def insert_into_overview():
+#     if request.method == 'POST':
+#         bike=request.form('bike')
+#         conn = db_connect()
+#         cur = conn.cursor()
+#         cur.execute('SELECT bike FROM prebuild')(bike)
+#         bought = cur.fetchall()
+#         conn.commit()
+#         cur.close()
+#         conn.close()
+#         print('works')
 
-    # if request.method == 'GET':
-
+    
 
 
 

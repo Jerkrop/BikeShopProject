@@ -253,7 +253,12 @@ li {
 .flexbox1 { 
   color:white;
   width: 5%;
+display: inline-flex;
+flex-direction: column;
+text-align: center;
+
 }
+
 
 li a {
   display: block;
@@ -267,8 +272,8 @@ img {
   display: block;
   max-width: 200px;
   max-height: 160px;
-  width: auto;
-  height: auto;
+  width: 200px;
+  height: 160px;
 }
 
 li a:hover {
@@ -276,7 +281,7 @@ li a:hover {
 }
 
 * {box-sizing: border-box}
-p
+
 .slideshow-container {
   max-width: 1000px;
   position: relative;
@@ -451,9 +456,8 @@ a:hover, a:active {
 .dropdown-content a:hover {
   background-color: red;
 }
-:hover { 
 
-}
+
 .show {
   display: block;
 }
@@ -474,9 +478,12 @@ a:hover, a:active {
 }
 .payment_button { 
   background-color: #f44336;
-  text-align: center;
-  outline: #111;
   color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
 }
 .button_adminpage { 
   display: block;
