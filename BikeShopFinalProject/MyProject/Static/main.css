@@ -253,6 +253,15 @@ li {
 .flexbox1 { 
   color:white;
   width: 5%;
+  margin-left: 47.5%;
+  text-align: center;
+}
+.flexbox2 { 
+  color:white;
+  width: 5%;
+margin-left: 47.5%;
+text-align: center;
+  
 }
 
 li a {
