@@ -22,7 +22,7 @@ salt = bcrypt.gensalt()
 def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
-        database = 'bicycle',
+        database = 'FinalBike',
         # user = 'postgres',
         # password = 'Meegee12'
     )
@@ -84,6 +84,32 @@ def custom_bike_db():
     cur.close()
     conn.close()
 
+def bicycle():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS bicycle (
+                    id bigserial,
+                    name varchar(255),
+                    email varchar(255),
+                    usr varchar(255),
+                    pass varchar(255)
+                    )""")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def accessories_db():
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS accessories_db (
+                    item varchar(255),
+                    price varchar(255),
+                    usr varchar(255),
+                    )""")
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def Insert_Place_Rev():
     conn = db_connect()
     cur = conn.cursor()
@@ -138,6 +164,7 @@ def cart2():
 
 
 
+
 def Randomize_Review():
     end()
     bike_db()
@@ -186,7 +213,7 @@ def accessories():
     return render_template('AccessoryPage.html')
 
 @app.route('/BMXbikes')
-def bmx_bikes():
+def BMXbikes():
     return render_template('BMXbikes.html')
 
 @app.route('/CustomizationBikePage')
@@ -194,7 +221,7 @@ def customization_bike():
     return render_template('CustomizationBikePage.html')
     
 @app.route('/KidsBikes')
-def kids_bike():
+def KidsBikes():
     return render_template('KidsBikes.html')
 
 @app.route('/MountainBikes')
@@ -208,11 +235,17 @@ def OverviewPage():
     print(test3)
     parts = []
     prices = []
+    sums = []
     for i in range(0, len(test3)):
         parts.append(test3[i][0])
         prices.append(test3[i][1])
+    for b in prices:
+        sums.append(int(b))
+    sums=sum(sums)
 
-    return render_template('/OverviewPage.html',test=prices,test3=parts)
+       
+
+    return render_template('/OverviewPage.html',test=sums,test3=parts,test4=prices)
     
 @app.route('/PaymentPage')
 def PaymentPage():
@@ -222,9 +255,9 @@ def PaymentPage():
 def Prebuild():
     return render_template('/PrebuildPage.html')
 
-@app.route('/Roadbike')
-def road_bike():
-    return render_template('Roadbikes.html')
+@app.route('/RoadBikes')
+def RoadBikes():
+    return render_template('RoadBikes.html')
 
 @app.route('/SignIn')
 def SignIn():
@@ -594,137 +627,202 @@ def Review_db_Insert():
 
 
 
-@app.route('/KidsBike',methods=['POST', 'GET'])
+@app.route('/KidsBikes',methods=['POST', 'GET'])
 def custombike1():
-    if request.method == 'POST':
-        print('daddy')
-        global activeuser
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
+    global activeuser
+    
+    if activeuser =='':
+        error =  'need to be logged in'
+        return render_template('KidsBikes.html',error=error)
+    else:
+        if request.method == 'POST':
+            print('daddy')
+            # global activeuser
+            button=request.form['bike']
+            bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+            ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+            ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
+            ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
+            {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
+            {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
+            {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
+            {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
+            {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
+            for i in range(0,len(bike)):
+                print(bike[i]['name'])
+                print(bike[i]['price'])
+                if bike[i]['name'] == button:
+                    print('test')
+                    value = bike[i]['price'] 
+                    item=bike[i]['name']
+                    conn = db_connect()
+                    cur = conn.cursor()
+                    cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
+                    conn.commit()
+                    cur.close()
+                    conn.close()
+                else:
+                    pass
 
-        return redirect(url_for('KidsBike'))
+            return redirect(url_for('KidsBikes'))
 
 
 @app.route('/MountainBikes',methods=['POST', 'GET'])
 def custombike2():
-    if request.method == 'POST':
-        global activeuser
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
+    global activeuser
+    
+    if activeuser =='':
+        error =  'need to be logged in'
+        return render_template('MountainBikes.html',error=error)
+    else:
+        if request.method == 'POST':
+            print('daddy')
+            button=request.form['bike']
+            bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+            ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+            ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
+            ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
+            {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
+            {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
+            {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
+            {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
+            {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
+            for i in range(0,len(bike)):
+                print(bike[i]['name'])
+                print(bike[i]['price'])
+                if bike[i]['name'] == button:
+                    print('test')
+                    value = bike[i]['price'] 
+                    item=bike[i]['name']
+                    conn = db_connect()
+                    cur = conn.cursor()
+                    cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
+                    conn.commit()
+                    cur.close()
+                    conn.close()
+                else:
+                    pass
 
-        return redirect(url_for('MountainBikes'))
+                return redirect(url_for('MountainBikes'))
 
 @app.route('/BMXbikes',methods=['POST', 'GET'])
 def custombike3():
-    if request.method == 'POST':
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
+    global activeuser
+    
+    if activeuser =='':
+        error =  'need to be logged in'
+        return render_template('BMXbikes.html',error=error)
+    else:
+        if request.method == 'POST':
+            print('daddy')
+            button=request.form['bike']
+            bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+            ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+            ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
+            ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
+            {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
+            {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
+            {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
+            {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
+            {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
+            for i in range(0,len(bike)):
+                print(bike[i]['name'])
+                print(bike[i]['price'])
+                if bike[i]['name'] == button:
+                    print('test')
+                    value = bike[i]['price'] 
+                    item=bike[i]['name']
+                    conn = db_connect()
+                    cur = conn.cursor()
+                    cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
+                    conn.commit()
+                    cur.close()
+                    conn.close()
+                else:
+                    pass
 
-        return redirect(url_for('BMXbikes'))
+            return redirect(url_for('BMXbikes'))
 
-@app.route('/RoadBike',methods=['POST', 'GET'])
+@app.route('/RoadBikes',methods=['POST', 'GET'])
 def custombike4():
-    if request.method == 'POST':
-        global activeuser
-        print('daddy')
-        button=request.form['bike']
-        bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
-        ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
-        ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
-        ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
-        {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
-        {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
-        {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
-        {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
-        {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
-        for i in range(0,len(bike)):
-            print(bike[i]['name'])
-            print(bike[i]['price'])
-            if bike[i]['name'] == button:
-                print('test')
-                value = bike[i]['price'] 
-                item=bike[i]['name']
-                conn = db_connect()
-                cur = conn.cursor()
-                cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
-                conn.commit()
-                cur.close()
-                conn.close()
-            else:
-                pass
+    global activeuser
+    
+    if activeuser =='':
+        error =  'need to be logged in'
+        return render_template('RoadBikes.html',error=error)
+    else:
+        if request.method == 'POST':
+            print('daddy')
+            button=request.form['bike']
+            bike=[{'name':'Seat1', 'price':50},{'name':'Seat2', 'price':50},{'name':'Seat3', 'price':60},{'name':'Seat4', 'price':65}
+            ,{'name':'Seat5', 'price':70},{'name':'Pedal1', 'price':100},{'name':'Pedal2', 'price':150},{'name':'Pedal3', 'price':180}
+            ,{'name':'Pedal4', 'price':195},{'name':'Pedal5', 'price':200},{'name':'Handlebar1', 'price':150},{'name':'Handlebar2', 'price':200},{'name':'Handlebar3', 'price':210}
+            ,{'name':'Handlebar4', 'price':220},{'name':'Handlebar5', 'price':230},{'name':'Shifter1', 'price':200},{'name':'Shifter2', 'price':155},
+            {'name':'Shifter3', 'price':160},{'name':'Shifter4', 'price':185},{'name':'Shifter5', 'price':300},
+            {'name':'Chainring1', 'price':150},{'name':'Chainring2', 'price':155},{'name':'Chainring3', 'price':160},{'name':'Chainring4', 'price':170},{'name':'Chainring5', 'price':190},
+            {'name':'Chain1', 'price':15},{'name':'Chain2', 'price':15},{'name':'Chain3', 'price':16},{'name':'Chain4', 'price':17},{'name':'Chain5', 'price':19},
+            {'name':'Suspension1', 'price':15},{'name':'Suspension2', 'price':15},{'name':'Suspension3', 'price':16},{'name':'Suspension4', 'price':17},{'name':'Suspension5', 'price':19},
+            {'name':'Tire1', 'price':1200},{'name':'Tire2', 'price':1500},{'name':'Tire3', 'price':16500},{'name':'Tire4', 'price':1700},{'name':'Tire5', 'price':1900},]
+            for i in range(0,len(bike)):
+                print(bike[i]['name'])
+                print(bike[i]['price'])
+                if bike[i]['name'] == button:
+                    print('test')
+                    value = bike[i]['price'] 
+                    item=bike[i]['name']
+                    conn = db_connect()
+                    cur = conn.cursor()
+                    cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
+                    conn.commit()
+                    cur.close()
+                    conn.close()
+                else:
+                    pass
 
-        return redirect(url_for('RoadBike'))
+            return redirect(url_for('RoadBikes'))
+
+
+
+@app.route('/accessories',methods=['POST', 'GET'])
+def accessories_insert():
+    global activeuser
+    
+    if activeuser =='':
+        error =  'need to be logged in'
+        return render_template('AccessoryPage.html',error=error)
+    else:
+        if request.method == 'POST':
+            print('daddy')
+            button=request.form['bike']
+            bike=[{'name':'Helment1', 'price':50},{'name':'Helment2', 'price':50},{'name':'Helment3', 'price':50},
+            {'name':'Helment4', 'price':50},{'name':'Helment5', 'price':50},
+            {'name':'Bell1', 'price':50},{'name':'Bell2', 'price':50},{'name':'Bell3', 'price':50},
+            {'name':'Bell4', 'price':50},{'name':'Bell5', 'price':50},
+            {'name':'Light1', 'price':50},{'name':'Light2', 'price':50},{'name':'Light3', 'price':50},
+            {'name':'Light4', 'price':50},{'name':'Light5', 'price':50},]
+            for i in range(0,len(bike)):
+                print(bike[i]['name'])
+                print(bike[i]['price'])
+                if bike[i]['name'] == button:
+                    print('test')
+                    value = bike[i]['price'] 
+                    item=bike[i]['name']
+                    conn = db_connect()
+                    cur = conn.cursor()
+                    cur.execute('INSERT INTO CustomBike (item,price,usr) VALUES(%s,%s,%s)',(item,value,activeuser))
+                    conn.commit()
+                    cur.close()
+                    conn.close()
+                else:
+                    pass
+
+            return redirect(url_for('accessories'))
+
+
+
+
+
+
 
 @app.route('/AdminPage', methods=['POST'])
 def changes():
@@ -771,8 +869,8 @@ def changes():
             conn.close()
             return render_template('AdminPage.html', error = error)
 
-def cart():
-
+def final_cart():
+    
     pass
 
 if __name__ == '__main__':
