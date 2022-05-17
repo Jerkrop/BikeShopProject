@@ -31,14 +31,29 @@
             </div> 
           </div>  
         
-        <!-- <h2 style="">Welcome To The Cart Page!</h2>
-        <h3 class="list_p">price</h3>
-         {% for item in test%}
-        <ul class="flexbox1" style="list-style-type:none;">
+        <h2 >Welcome To The Cart Page!</h2>
+       
+        <div class="list_p flexbox1" >
+
+        
+        <h3 >Name</h3>
+        {% for item in test3%}
+        <ul  style="list-style-type:none;">
           <li>{{item}}</li>
         </ul>
-        {% endfor %} -->
-      
+       {% endfor %}
+    </div> 
+    <div class="list_p flexbox1">
+        <h3 >price</h3>
+        {% for item in test4%}
+        <ul  style="list-style-type:none;">
+          <li>${{item}}</li>
+        </ul>
+        {% endfor %}
+    </div>
+    </div>
+<br>
+<br>
         <button class="payment_button" action="http://127.0.0.1:5000/PaymentPage" >PAY HERE!</button>
     </div>
 </form>
