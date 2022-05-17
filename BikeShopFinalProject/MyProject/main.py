@@ -23,8 +23,8 @@ def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
         database = 'FinalBike',
-        # user = 'postgres',
-        # password = 'Meegee12'
+        user = 'postgres',
+        password = 'Meegee12'
     )
     return conn
 
@@ -427,7 +427,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder7'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('kids bike2',550,activeuser))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike2',550,activeuser))
             conn.commit()
             cur.close()
             conn.close()
