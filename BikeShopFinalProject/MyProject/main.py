@@ -427,7 +427,7 @@ def PreBuild_Buy():
             conn = db_connect()
             cur = conn.cursor()
             desc = 'placeholder7'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('kids bike2',550,activeuser))
+            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike2',550,activeuser))
             conn.commit()
             cur.close()
             conn.close()
