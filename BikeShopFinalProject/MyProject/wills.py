@@ -61,7 +61,7 @@ def registration():
         if mail == '' or user == '' or pasw == '' or name == '':
             error = 'Fields can not be left empty!'
             return render_template('Register.html', error = error)
-        if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$',pasw):
+        if not re.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",pasw):
             error = 'The password is not strong enough!'
             return render_template('Register.html', error = error)
         for i in range(0,len(info)):
