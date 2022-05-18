@@ -82,7 +82,9 @@ def registration():
 
 @app.route('/SignIn')
 def SignIn():
+    
     return render_template('SignIn.html')
+
 
 @app.route('/SignIn', methods=['POST'])
 def login():

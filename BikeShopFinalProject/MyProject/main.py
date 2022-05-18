@@ -22,7 +22,7 @@ salt = bcrypt.gensalt()
 def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
-        database = 'FinalBike',
+        database = 'bicycle',
         # user = 'postgres',
         # password = 'Meegee12'
     )
@@ -132,6 +132,10 @@ def Cart_Counter():
     for items in cart:
         counter+=1
 
+def logout():
+    global activeuser
+    activeuser = ''
+    return render_template('StorePage.html',activeuser=activeuser)
 
 def cart1():
     global activeuser
@@ -191,6 +195,7 @@ def Randomize_Review():
     
 @app.route('/')
 def random_insertdb():
+    global activeuser
     test=Randomize_Review()
     print(test)
     b=[]
@@ -200,31 +205,36 @@ def random_insertdb():
         print(i)
     ran=random.choice(b)
     ran=str(ran).strip("'()',")
-    return render_template('StorePage.html',ran=ran)
+    return render_template('StorePage.html',ran=ran,activeuser=activeuser)
 
 @app.route('/AdminPage')
 def AdminPage():
-    return render_template('AdminPage.html')
+    return render_template('AdminPage.html',activeuser=activeuser)
 
 @app.route('/accessories')
 def accessories():
-    return render_template('AccessoryPage.html')
+    global activeuser
+    return render_template('AccessoryPage.html',activeuser=activeuser)
 
 @app.route('/BMXbikes')
 def BMXbikes():
-    return render_template('BMXbikes.html')
+    global activeuser
+    return render_template('BMXbikes.html',activeuser=activeuser)
 
 @app.route('/CustomizationBikePage')
 def customization_bike():
-    return render_template('CustomizationBikePage.html')
+    global activeuser
+    return render_template('CustomizationBikePage.html',activeuser=activeuser)
     
 @app.route('/KidsBikes')
 def KidsBikes():
-    return render_template('KidsBikes.html')
+    global activeuser
+    return render_template('KidsBikes.html',activeuser=activeuser)
 
 @app.route('/MountainBikes')
 def MountainBikes():
-    return render_template('/MountainBikes.html')
+    global activeuser
+    return render_template('MountainBikes.html',activeuser=activeuser)
 
 @app.route('/Overview')
 def OverviewPage():
@@ -245,31 +255,29 @@ def OverviewPage():
     sums = sum(sums)
 
 
-
     return render_template('/OverviewPage.html',sums=sums,parts=parts,prices=prices,activeuser=activeuser)
+
     
 @app.route('/PaymentPage')
+
 def PaymentPage():
-    return render_template('PaymentPage.html')
+    global activeuser
+    return render_template('PaymentPage.html',activeuser=activeuser)
 
 @app.route('/Prebuild')
 def Prebuild():
-    return render_template('/PrebuildPage.html')
+    global activeuser
+    return render_template('PrebuildPage.html',activeuser=activeuser)
 
 @app.route('/RoadBikes')
 def RoadBikes():
-    return render_template('RoadBikes.html')
+    global activeuser
+    return render_template('RoadBikes.html',activeuser=activeuser)
 
 @app.route('/SignIn')
 def SignIn():
-    return render_template('Signin.html')
-
-@app.route('/description')
-def description():
-    return render_template('description.html')
-
-@app.route('/Register')## base route for register and adds an admin login
-def Register():
+    global activeuser
+    activeuser = ''
     conn = db_connect()
     cur = conn.cursor()
     pasw = bytes('password', 'utf-8')
@@ -286,11 +294,21 @@ def Register():
     conn.commit()
     cur.close()
     conn.close()
-    return render_template('Register.html')
+    return render_template('Signin.html')
+
+@app.route('/description')
+def description():
+    global activeuser
+    return render_template('description.html',activeuser=activeuser)
+
+@app.route('/Register')## base route for register and adds an admin login
+def Register():
+    return render_template('Register.html',activeuser=activeuser)
 
 @app.route('/end')
 def endpoint():
-    return render_template('EndPointPage.html')
+    global activeuser
+    return render_template('EndPointPage.html',activeuser=activeuser)
 
 @app.route('/error')
 def error():
@@ -371,6 +389,7 @@ def registration():
 def PreBuild_Buy():
     global activeuser
     if request.method == 'POST':
+        global activeuser
         # bikes=request.form['Road' or 'kids' or 'Mountain' or 'b'or 'Road1' or'Road2'or 'Road3' or 'Road4' ]
         bikes = request.form.to_dict()
         bikes = bikes.values()
@@ -572,6 +591,7 @@ def PreBuild_Buy():
 @app.route('/end',methods=['POST', 'GET'])
 def Review_db_Insert():
     random_insertdb()
+    global activeuser
     if request.method == 'POST':
         name = request.form['name']
         review = request.form['review']
@@ -623,7 +643,7 @@ def Review_db_Insert():
         global daddy2 
         daddy2 +=1
 
-        return redirect(url_for('random_insertdb', ran = review))
+        return redirect(url_for('random_insertdb',ran = review,activeuser=activeuser))
 
 
 
@@ -666,7 +686,7 @@ def custombike1():
                 else:
                     pass
 
-            return redirect(url_for('KidsBikes'))
+            return redirect(url_for('KidsBikes',activeuser=activeuser))
 
 
 @app.route('/MountainBikes',methods=['POST', 'GET'])
@@ -675,7 +695,7 @@ def custombike2():
     
     if activeuser =='':
         error =  'need to be logged in'
-        return render_template('MountainBikes.html',error=error)
+        return render_template('MountainBikes.html',error=error,activeuser=activeuser)
     else:
         if request.method == 'POST':
             print('daddy')
@@ -705,7 +725,7 @@ def custombike2():
                 else:
                     pass
 
-                return redirect(url_for('MountainBikes'))
+                return redirect(url_for('MountainBikes',activeuser=activeuser))
 
 @app.route('/BMXbikes',methods=['POST', 'GET'])
 def custombike3():
@@ -713,7 +733,7 @@ def custombike3():
     
     if activeuser =='':
         error =  'need to be logged in'
-        return render_template('BMXbikes.html',error=error)
+        return render_template('BMXbikes.html',error=error,activeuser=activeuser)
     else:
         if request.method == 'POST':
             print('daddy')
@@ -743,7 +763,7 @@ def custombike3():
                 else:
                     pass
 
-            return redirect(url_for('BMXbikes'))
+            return redirect(url_for('BMXbikes',activeuser=activeuser))
 
 @app.route('/RoadBikes',methods=['POST', 'GET'])
 def custombike4():
@@ -751,7 +771,7 @@ def custombike4():
     
     if activeuser =='':
         error =  'need to be logged in'
-        return render_template('RoadBikes.html',error=error)
+        return render_template('RoadBikes.html',error=error,activeuser=activeuser)
     else:
         if request.method == 'POST':
             print('daddy')
@@ -781,7 +801,7 @@ def custombike4():
                 else:
                     pass
 
-            return redirect(url_for('RoadBikes'))
+            return redirect(url_for('RoadBikes',activeuser=activeuser))
 
 
 
@@ -791,7 +811,7 @@ def accessories_insert():
     
     if activeuser =='':
         error =  'need to be logged in'
-        return render_template('AccessoryPage.html',error=error)
+        return render_template('AccessoryPage.html',error=error,activeuser=activeuser)
     else:
         if request.method == 'POST':
             print('daddy')
@@ -818,7 +838,7 @@ def accessories_insert():
                 else:
                     pass
 
-            return redirect(url_for('accessories'))
+            return redirect(url_for('accessories',activeuser=activeuser))
 
 
 
@@ -828,6 +848,7 @@ def accessories_insert():
 
 @app.route('/AdminPage', methods=['POST'])
 def changes():
+    global activeuser
     if request.method == 'POST':
         global daddy3
         conn = db_connect()
@@ -864,12 +885,12 @@ def changes():
                 cost.string = price
                 fp.truncate(0)
                 fp.write(str(soup))
-                return render_template('AdminPage.html', error = error)
+                return render_template('AdminPage.html', error = error,activeuser=activeuser)
         else:
             error = 'Not an acceptable link'
             cur.close()
             conn.close()
-            return render_template('AdminPage.html', error = error)
+            return render_template('AdminPage.html', error = error,activeuser=activeuser)
 
 def final_cart():
     

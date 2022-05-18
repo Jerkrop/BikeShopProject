@@ -7,8 +7,12 @@
         <div class="navbar">
             <h1 class="h1StoreHeader">Bike Shop</h1>
            
-            <a  href="/" class="Login_Logout">Log out 
-    
+            {% if activeuser == ''%}
+            <a class="Login_Logout" href="/SignIn">Log in</a>
+            {% else %}
+            <a class="Login_Logout" href="/SignIn">Log out</a>
+            {% endif %}
+
             </a ><ion-icon name="power"></ion-icon>
             
             <a href="http://127.0.0.1:5000/">Home</a>
