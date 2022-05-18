@@ -171,6 +171,7 @@ def Randomize_Review():
     bike_db()
     prebuild_db()
     custom_bike_db()
+    bicycle()
     global daddy
     run_one=0
     if daddy==0:
@@ -253,7 +254,6 @@ def OverviewPage():
         sums.append(int(b))
     sums = sum(sums)
 
-       
 
     return render_template('/OverviewPage.html',sums=sums,parts=parts,prices=prices,activeuser=activeuser)
 
@@ -398,174 +398,175 @@ def PreBuild_Buy():
         # kids=request.form['kids']
         # Mountain=request.form['Mountain']
         # b=request.form['b']
-        if bikes =='Rfirst':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder1'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike1',500,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Rsecond':
-            conn = db_connect() 
-            cur = conn.cursor()
-            desc = 'placeholder2'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike2',550,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Rthird':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder3'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike3',600,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Rfourth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder4'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike4',650,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Rfifth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder5'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike5',700,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Kfirst':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder6'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike1',500,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Ksecond':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder7'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('kids bike2',550,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Kthird':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder8'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike3',600,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Kfourth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder9'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike4',650,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Kfifth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder10'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike5',700,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Mfirst':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder11'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike1',500,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Msecond':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder12'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike2',550,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Mthird':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder13'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike3',600,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Mfourth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder14'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike4',650,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Mfifth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder15'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike5',700,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Bfirst':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder16'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike1',500,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Bsecond':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder17'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike2',550,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Bthird':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder18'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike3',600,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Bfourth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder19'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike4',650,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
-        elif bikes =='Bfifth':
-            conn = db_connect()
-            cur = conn.cursor()
-            desc = 'placeholder20'
-            cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike5',700,activeuser))
-            conn.commit()
-            cur.close()
-            conn.close()
+        if activeuser =='':
+            error =  'need to be logged in'
+            return render_template('PrebuildPage.html',error=error)
         else:
-            # pass
-            return render_template('error.html')
+            if bikes =='Rfirst':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder1'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike1',500,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Rsecond':
+                conn = db_connect() 
+                cur = conn.cursor()
+                desc = 'placeholder2'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike2',550,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Rthird':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder3'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike3',600,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Rfourth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder4'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike4',650,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Rfifth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder5'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Road bike5',700,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Kfirst':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder6'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike1',500,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Ksecond':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder7'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike2',550,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Kthird':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder8'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike3',600,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Kfourth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder9'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike4',650,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Kfifth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder10'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('kids bike5',700,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Mfirst':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder11'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike1',500,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Msecond':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder12'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike2',550,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Mthird':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder13'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('Mountain Bike3',600,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Mfourth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder14'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike4',650,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Mfifth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder15'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s',('Mountain Bike5',700,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Bfirst':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder16'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike1',500,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Bsecond':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder17'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike2',550,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Bthird':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder18'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike3',600,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Bfourth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder19'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike4',650,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            elif bikes =='Bfifth':
+                conn = db_connect()
+                cur = conn.cursor()
+                desc = 'placeholder20'
+                cur.execute('INSERT INTO prebuild (Name,price,usr) VALUES(%s,%s,%s)',('BMX bike5',700,activeuser))
+                conn.commit()
+                cur.close()
+                conn.close()
+            else:
+                # pass
+                return render_template('error.html')
 
-
-
-
-    return render_template('description.html',desc=desc,activeuser=activeuser)
+        return render_template('description.html', desc=desc)
 
 
 # function to pull info for cart from db
