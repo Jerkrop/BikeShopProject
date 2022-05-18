@@ -23,8 +23,8 @@ def db_connect():
     conn = psycopg2.connect(## change this depending on OS/database name
         host = 'localhost',
         database = 'FinalBike',
-        user = 'postgres',
-        password = 'Meegee12'
+        # user = 'postgres',
+        # password = 'Meegee12'
     )
     return conn
 
@@ -228,22 +228,25 @@ def MountainBikes():
 
 @app.route('/Overview')
 def OverviewPage():
-    prebuild=cart1()
-    test3=cart2()
-    print(test3)
+    global activeuser
+    test3=cart1()
+    test4=cart2()
     parts = []
     prices = []
     sums = []
     for i in range(0, len(test3)):
         parts.append(test3[i][0])
         prices.append(test3[i][1])
+    for i in range(0, len(test4)):
+        parts.append(test4[i][0])
+        prices.append(test4[i][1])
     for b in prices:
         sums.append(int(b))
-    sums=sum(sums)
+    sums = sum(sums)
 
-       
 
-    return render_template('/OverviewPage.html',test=sums,test3=parts,test4=prices,prebuild=prebuild)
+
+    return render_template('/OverviewPage.html',sums=sums,parts=parts,prices=prices,activeuser=activeuser)
     
 @app.route('/PaymentPage')
 def PaymentPage():
