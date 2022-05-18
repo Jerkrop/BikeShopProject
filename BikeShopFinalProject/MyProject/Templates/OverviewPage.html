@@ -18,7 +18,7 @@
                 
               </a>
               <div class="dropdown-content" id="myDropdown">
-                <a  style="color:  black" href="http://127.0.0.1:5000/Roadbike">Road</a>
+                <a  style="color:  black" href="http://127.0.0.1:5000/Roadbikes">Road</a>
                     <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
                 <a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
                 <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
@@ -33,7 +33,7 @@
         
         <h2 >Welcome To The Cart Page!</h2>
        
-        <div class="list_p flexbox1" >
+        <div  class="list_p flexbox1" >
 
         
         <h3 >Name</h3>
@@ -43,13 +43,16 @@
         </ul>
        {% endfor %}
     </div> 
-    <div class="list_p flexbox1">
+    
+    <div class= "flexbox1">
         <h3 >price</h3>
-        {% for item in test4%}
+        
+     {% for item in test4%}
         <ul  style="list-style-type:none;">
           <li>${{item}}</li>
         </ul>
         {% endfor %}
+    
     </div>
     </div>
 <br>
