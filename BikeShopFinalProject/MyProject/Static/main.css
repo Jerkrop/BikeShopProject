@@ -523,3 +523,24 @@ a:hover, a:active {
   font-size: 16px;
   margin-left: 75px;
 }
+.flex-container15 { 
+  float: left;
+  text-align: center;
+  font-size: 15px;
+  background-color: rgba(27, 27, 27, 0.836);
+ 
+  padding: 14px 16px;
+  text-decoration: none;
+  width: 30%;
+  color: red;
+  margin-left: 35%;
+  margin-top: 5%;
+}
+.review_button { 
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
