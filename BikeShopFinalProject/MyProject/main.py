@@ -259,7 +259,6 @@ def OverviewPage():
 
     
 @app.route('/PaymentPage')
-
 def PaymentPage():
     global activeuser
     return render_template('PaymentPage.html',activeuser=activeuser)
@@ -283,6 +282,10 @@ def SignIn():
     pasw = bytes('password', 'utf-8')
     hashed = bcrypt.hashpw(pasw, salt)
     hashed = hashed.decode('utf-8')
+    cur.execute('TRUNCATE TABLE custombike')
+    conn.commit()
+    cur.execute('TRUNCATE TABLE prebuild')
+    conn.commit()
     cur.execute('SELECT * FROM bicycle')
     info = cur.fetchall()
     for i in range(0,len(info) + 1):
@@ -308,6 +311,14 @@ def Register():
 @app.route('/end')
 def endpoint():
     global activeuser
+    conn = db_connect()
+    cur = conn.cursor()
+    cur.execute('TRUNCATE TABLE custombike')
+    conn.commit()
+    cur.execute('TRUNCATE TABLE prebuild')
+    conn.commit()
+    cur.close()
+    conn.close()
     return render_template('EndPointPage.html',activeuser=activeuser)
 
 @app.route('/error')
