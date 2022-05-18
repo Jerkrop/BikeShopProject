@@ -25,9 +25,11 @@ if (isAuthenticated) {
         
        <div class="navbar">
         <h1 class="h1StoreHeader" >Bike Shop</h1>
-        <a   href="http://127.0.0.1:5000/SignIn" class="Login_Logout">Login</a>
-
-        
+        {% if activeuser == ''%}
+        <a class="Login_Logout" href="/SignIn">Log in</a>
+        {% else %}
+        <a class="Login_Logout" href="/SignIn">Log out</a>
+        {% endif %}
      
         <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
           <div class="dropdown">
