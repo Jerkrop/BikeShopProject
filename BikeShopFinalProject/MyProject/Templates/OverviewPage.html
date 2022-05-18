@@ -37,7 +37,7 @@
 
         
         <h3 >Name</h3>
-        {% for item in test3%}
+        {% for item in parts%}
         <ul  style="list-style-type:none;">
           <li>{{item}}</li>
         </ul>
@@ -45,16 +45,16 @@
     </div> 
     <div class="list_p flexbox1">
         <h3 >price</h3>
-        {% for item in test4%}
+        {% for item in prices%}
         <ul  style="list-style-type:none;">
           <li>${{item}}</li>
         </ul>
         {% endfor %}
-    </div>{{prebuild}}
+    </div>
     </div>
 <br>
 <br>
-        <button class="payment_button" action="http://127.0.0.1:5000/PaymentPage" >PAY HERE!</button>
+        <a class="payment_button" href="http://127.0.0.1:5000/PaymentPage" >PAY HERE!</a>
     </div>
 </form>
 <div class="footer">
