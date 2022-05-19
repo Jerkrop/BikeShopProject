@@ -3,27 +3,31 @@
 <body>
 <link href="../static/main.css" rel="stylesheet"/>
 <div class="navbar">
-<h1 class="h1StoreHeader">Bike Shop</h1>
-{% if activeuser == ''%}
-<a class="Login_Logout" href="/SignIn">Log in</a>
-{% else %}
-<a class="Login_Logout" href="/SignIn">Log out</a>
-{% endif %}
-            </a><ion-icon name="power"></ion-icon>
-<a href="http://127.0.0.1:5000/">Home</a>
-<a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
-<div class="dropdown">
-<a class="dropbtn" onclick="myFunction()">Customize
-                
-              </a>
-<div class="dropdown-content" id="myDropdown">
-<a href="http://127.0.0.1:5000/RoadBikes">Road</a>
-<a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
-<a href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
-<a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
-</div>
-<a href="http://127.0.0.1:5000/Overview">Cart</a>
-</div>
+  <h1 class="h1StoreHeader">Bike Shop</h1>
+  {% if activeuser == ''%}
+  <a class="Login_Logout" href="/SignIn">Log in</a>
+  {% else %}
+  <a class="Login_Logout" href="/SignIn">Log out</a>
+  {% endif %}
+  </a ><ion-icon name="power"></ion-icon>
+  
+  <a href="http://127.0.0.1:5000/">Home</a>
+  <a href="http://127.0.0.1:5000/Prebuild">Prebuild</a>
+    <div class="dropdown">
+    <a style="background-color: #f44336;" class="dropbtn" onclick="myFunction()">Customize/Parts
+      
+    </a>
+    <div class="dropdown-content" id="myDropdown">
+      <a href="http://127.0.0.1:5000/RoadBikes">Road</a>
+      <a href="http://127.0.0.1:5000/KidsBikes">Kids</a>
+      <a  style="color:  black" href="http://127.0.0.1:5000/MountainBikes">Mountain</a>
+      <a href="http://127.0.0.1:5000/BMXbikes">BMX</a>
+ 
+    </div>
+    <a href="http://127.0.0.1:5000/accessories">Accessories</a>
+    <a href="http://127.0.0.1:5000/Overview">Cart</a>
+  </div> 
+</div>  
 </div>
 <br/>
 <script>
