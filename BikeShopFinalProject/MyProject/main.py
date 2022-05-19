@@ -16,6 +16,10 @@ daddy3 = []
 
 activeuser = ''
 
+price = []
+
+part = []
+
 salt = bcrypt.gensalt()
 
 # connects to the database
@@ -239,6 +243,8 @@ def MountainBikes():
 @app.route('/Overview')
 def OverviewPage():
     global activeuser
+    global price
+    global part
     test3=cart1()
     test4=cart2()
     parts = []
@@ -252,6 +258,10 @@ def OverviewPage():
         prices.append(test4[i][1])
     for b in prices:
         sums.append(int(b))
+
+    part = parts
+    price = prices
+
     sums = sum(sums)
 
 
@@ -261,7 +271,9 @@ def OverviewPage():
 @app.route('/PaymentPage')
 def PaymentPage():
     global activeuser
-    return render_template('PaymentPage.html',activeuser=activeuser)
+    global price
+    global part
+    return render_template('PaymentPage.html',activeuser=activeuser, price=price, part=part)
 
 @app.route('/Prebuild')
 def Prebuild():
